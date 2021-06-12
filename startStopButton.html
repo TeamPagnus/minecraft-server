@@ -60,7 +60,7 @@ myBtn.onclick = function(){
         })
     } else if (myBtn.innerText == "Start"){
         myBtn.disabled = true;
-        httpGetAsync("/cgi-bin/startMinecraft.py",function(){
+        httpGetAsync("/cgi-bin/startServer.py",function(){
             updateBtn();
         })
     }
