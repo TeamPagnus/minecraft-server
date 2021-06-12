@@ -16,7 +16,7 @@ JAVA_START = "java -Xmx1024M -Xms1024M -jar"
 JAVA_END =  "nogui"
 LOG_OUTPUT = "out.txt"
 MINECRAFT_DIR = "minecraft/"
-VERSION_FILE = "server_version"
+VERSION_FILE = "server-version"
 
 import os
 from subprocess import getoutput, run
