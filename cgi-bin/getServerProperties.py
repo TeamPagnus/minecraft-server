@@ -13,10 +13,6 @@ print()
 import cgitb
 cgitb.enable()
 
-# Content
-args = cgi.FieldStorage(keep_blank_values = True)
-
-# Extract POST arguments.
 server_properties = ""
 with open(MINECRAFT_DIR + "server.properties", 'r') as f:
     for l in f:
