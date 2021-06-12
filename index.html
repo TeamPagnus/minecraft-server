@@ -1,1 +1,34 @@
-<a href="/cgi-bin/preset.py"><button>hola</button></a>
+<!DOCTYPE html>
+<html>
+<body>
+
+<button id="myBtn">hola</button>
+<div id="out"></div>
+
+<script>
+// Get elements
+var myBtn = document.getElementById("myBtn");
+var out = document.getElementById("out");
+
+// Utility functions
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+// Main
+myBtn.addEventListener("click", function() {
+  httpGetAsync("/cgi-bin/preset.py", function(responseText){
+      out.innerText = responseText;
+  })
+});
+</script>
+
+</body>
+</html>
