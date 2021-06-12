@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button id="myBtn"></button>
+<div id="out" style="background-color: black;color: white;font-size: 12px;"></div>
+
+<script>
+// Get elements
+var myBtn = document.getElementById("myBtn");
+var out = document.getElementById("out");
+
+// Utility functions
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function updateBtn(){
+    console.log("updating btn")
+    httpGetAsync("/cgi-bin/getServerStatus.py", async function(responseText){
+        console.log(responseText)
+        if (responseText.includes("Started")) {
+            myBtn.innerText = "Stop";
+            myBtn.disabled = false;
+        } else if (responseText.includes("Stopped")){
+            myBtn.innerText = "Start";
+            myBtn.disabled = false;
+        } else {
+            myBtn.innerText = "Waiting...";
+            myBtn.disabled = true;
+            await sleep(2000)
+            updateBtn()
+        }
+    })
+    httpGetAsync("/cgi-bin/getLastConsoleOutput.py",function(responseText){
+        out.innerText = responseText;
+    })
+}
+
+// Main
+updateBtn()
+
+myBtn.onclick = function(){
+    console.log(myBtn.innerText)
+    if (myBtn.innerText == "Stop") {
+        myBtn.disabled = true;
+        httpGetAsync("/cgi-bin/stopServer.py",function(){
+            updateBtn();
+        })
+    } else if (myBtn.innerText == "Start"){
+        myBtn.disabled = true;
+        httpGetAsync("/cgi-bin/startServer.py",function(){
+            updateBtn();
+        })
+    }
+}
+
+</script>
+
+</body>
+</html>
