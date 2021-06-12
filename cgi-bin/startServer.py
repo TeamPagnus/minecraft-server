@@ -16,6 +16,7 @@ JAVA_START = "java -Xmx1024M -Xms1024M -jar"
 JAVA_END =  "nogui"
 LOG_OUTPUT = "out.txt"
 MINECRAFT_DIR = "minecraft/"
+VERSION_FILE = "server_version"
 
 import os
 from subprocess import getoutput, run
@@ -34,8 +35,7 @@ getoutput("echo eula=true > eula.txt")
 getoutput("screen -dmS minecraftServer")
 
 # generar comando
-getoutput("echo tetet >> pyout.txt")
-version = getoutput("cat version.txt")
+version = getoutput(f"cat {VERSION_FILE}")
 cmd = f"{JAVA_START} minecraft_server.{version}.jar {JAVA_END} >> {LOG_OUTPUT}"
 
 # iniciar servidor de minecraft en la sesion de screen
