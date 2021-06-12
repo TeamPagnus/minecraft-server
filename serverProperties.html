@@ -1,0 +1,231 @@
+<form action="/cgi-bin/setServerProperties.py" method="POST">
+	<div>
+		Max Players:
+		<input
+			name="max-players"
+			id="max-players"
+			type="number"
+			value="20"
+			min="0"
+			max="2147483647"
+		/>
+	</div>
+	<br />
+	<div>
+		Difficulty:
+		<select name="difficulty" id="difficulty">
+			<option value="peaceful">Peaceful</option>
+			<option value="easy" selected="selected">Easy</option>
+			<option value="normal">Normal</option>
+			<option value="hard">Hard</option>
+		</select>
+	</div>
+	<br />
+	<div>
+		Online mode:
+		<label for="online-mode-false">False</label>
+		<input
+			type="radio"
+			name="online-mode"
+			id="online-mode-false"
+			value="false"
+		/>
+		<label for="online-mode-true">True</label>
+		<input
+			type="radio"
+			name="online-mode"
+			id="online-mode-true"
+			value="true"
+			checked="checked"
+		/>
+	</div>
+	<br />
+	<div>
+		Enable command block:
+		<label for="enable-command-block-false">False</label>
+		<input
+			type="radio"
+			name="enable-command-block"
+			id="enable-command-block-false"
+			value="false"
+			checked="checked"
+		/>
+		<label for="enable-command-block-true">True</label>
+		<input
+			type="radio"
+			name="enable-command-block"
+			id="enable-command-block-true"
+			value="true"
+		/>
+	</div>
+	<br />
+	<div>
+		Spawn Animals:
+		<label for="spawn-animals-false">False</label>
+		<input
+			type="radio"
+			name="spawn-animals"
+			id="spawn-animals-false"
+			value="false"
+		/>
+		<label for="spawn-animals-true">True</label>
+		<input
+			type="radio"
+			name="spawn-animals"
+			id="spawn-animals-true"
+			value="true"
+			checked="checked"
+		/>
+	</div>
+	<br />
+	<div>
+		Spawn NPCs:
+		<label for="spawn-npcs-false">False</label>
+		<input
+			type="radio"
+			name="spawn-npcs"
+			id="spawn-npcs-false"
+			value="false"
+		/>
+		<label for="spawn-npcs-true">True</label>
+		<input
+			type="radio"
+			name="spawn-npcs"
+			id="spawn-npcs-true"
+			value="true"
+			checked="checked"
+		/>
+	</div>
+	<br />
+	<div>
+		Force gamemode:
+		<label for="force-gamemode-false">False</label>
+		<input
+			type="radio"
+			name="force-gamemode"
+			id="force-gamemode-false"
+			value="false"
+			checked="checked"
+		/>
+		<label for="force-gamemode-true">True</label>
+		<input
+			type="radio"
+			name="force-gamemode"
+			id="force-gamemode-true"
+			value="true"
+		/>
+	</div>
+	<br />
+	<div>
+		White list:
+		<label for="white-list-false">False</label>
+		<input
+			type="radio"
+			name="white-list"
+			id="white-list-false"
+			value="false"
+			checked="checked"
+		/>
+		<label for="white-list-true">True</label>
+		<input
+			type="radio"
+			name="white-list"
+			id="white-list-true"
+			value="true"
+		/>
+	</div>
+	<br />
+	<div>
+		PVP:
+		<label for="pvp-false">False</label>
+		<input type="radio" name="pvp" id="pvp-false" value="false" />
+		<label for="pvp-true">True</label>
+		<input
+			type="radio"
+			name="pvp"
+			id="pvp-true"
+			value="true"
+			checked="checked"
+		/>
+	</div>
+	<br />
+	<div>
+		Allow flight:
+		<label for="allow-flight-false">False</label>
+		<input
+			type="radio"
+			name="allow-flight"
+			id="allow-flight-false"
+			value="false"
+			checked="checked"
+		/>
+		<label for="allow-flight-true">True</label>
+		<input
+			type="radio"
+			name="allow-flight"
+			id="allow-flight-true"
+			value="true"
+		/>
+	</div>
+	<br />
+	<div>
+		Spawn monsters:
+		<label for="spawn-monsters-false">False</label>
+		<input
+			type="radio"
+			name="spawn-monsters"
+			id="spawn-monsters-false"
+			value="false"
+		/>
+		<label for="spawn-monsters-true">True</label>
+		<input
+			type="radio"
+			name="spawn-monsters"
+			id="spawn-monsters-true"
+			value="true"
+			checked="checked"
+		/>
+	</div>
+	<br />
+	<div>
+		Allow Nether:
+		<label for="allow-nether-false">False</label>
+		<input
+			type="radio"
+			name="allow-nether"
+			id="allow-nether-false"
+			value="false"
+		/>
+		<label for="allow-nether-true">True</label>
+		<input
+			type="radio"
+			name="allow-nether"
+			id="allow-nether-true"
+			value="true"
+			checked="checked"
+		/>
+	</div>
+	<br />
+	<div>
+		Spawn protection:
+		<input
+			name="spawn-protection"
+			id="spawn-protection"
+			type="number"
+			value="16"
+			min="0"
+			max="2147483647"
+		/>
+	</div>
+	<br />
+	<div>
+		Resource pack:
+		<input type="text" name="resource-pack" id="resource-pack" />
+	</div>
+	<br />
+	<div>
+		<input type="submit" value="Save" />
+	</div>
+</form>
+<script type="text/javascript" src="./scripts/httpGet.js"></script>
+<script type="text/javascript" src="./scripts/serverProperties.js"></script>
