@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Generates server.properties by merging worldless-server.properties and
+# level-name.properties.
+
+CGI_DIR = "cgi_bin/"
+MINECRAFT_DIR = "minecraft/"
+
+server_properties = ""
+
+with open(MINECRAFT_DIR + "worldless-server.properties", 'r') as f:
+    for l in f:
+        server_properties += l
+
+with open(MINECRAFT_DIR + "level-name.properties", 'r') as f:
+    for l in f:
+        server_properties += l
+
+with open(MINECRAFT_DIR + "server.properties", 'w') as f:
+    f.write(server_properties)
