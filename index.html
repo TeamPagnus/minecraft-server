@@ -2,13 +2,377 @@
 <html>
 <body>
 
-<button id="myBtn">hola</button>
-<div id="out"></div>
+<div id="public-ip"></div>
+<form action="/cgi-bin/setServerProperties.py" method="POST">
+	<div>
+		Max Players:
+		<input
+			name="max-players"
+			id="max-players"
+			type="number"
+			value="20"
+			min="0"
+			max="2147483647"
+		/>
+	</div>
+	<br />
+	<div>
+		Difficulty:
+		<select name="difficulty" id="difficulty">
+			<option value="peaceful">Peaceful</option>
+			<option value="easy" selected="selected">Easy</option>
+			<option value="normal">Normal</option>
+			<option value="hard">Hard</option>
+		</select>
+	</div>
+	<br />
+	<div>
+		Online mode:
+		<label for="online-mode-false">False</label>
+		<input
+			type="radio"
+			name="online-mode"
+			id="online-mode-false"
+			value="false"
+		/>
+		<label for="online-mode-true">True</label>
+		<input
+			type="radio"
+			name="online-mode"
+			id="online-mode-true"
+			value="true"
+			checked="checked"
+		/>
+	</div>
+	<br />
+	<div>
+		Enable command block:
+		<label for="enable-command-block-false">False</label>
+		<input
+			type="radio"
+			name="enable-command-block"
+			id="enable-command-block-false"
+			value="false"
+			checked="checked"
+		/>
+		<label for="enable-command-block-true">True</label>
+		<input
+			type="radio"
+			name="enable-command-block"
+			id="enable-command-block-true"
+			value="true"
+		/>
+	</div>
+	<br />
+	<div>
+		Spawn Animals:
+		<label for="spawn-animals-false">False</label>
+		<input
+			type="radio"
+			name="spawn-animals"
+			id="spawn-animals-false"
+			value="false"
+		/>
+		<label for="spawn-animals-true">True</label>
+		<input
+			type="radio"
+			name="spawn-animals"
+			id="spawn-animals-true"
+			value="true"
+			checked="checked"
+		/>
+	</div>
+	<br />
+	<div>
+		Spawn NPCs:
+		<label for="spawn-npcs-false">False</label>
+		<input
+			type="radio"
+			name="spawn-npcs"
+			id="spawn-npcs-false"
+			value="false"
+		/>
+		<label for="spawn-npcs-true">True</label>
+		<input
+			type="radio"
+			name="spawn-npcs"
+			id="spawn-npcs-true"
+			value="true"
+			checked="checked"
+		/>
+	</div>
+	<br />
+	<div>
+		Force gamemode:
+		<label for="force-gamemode-false">False</label>
+		<input
+			type="radio"
+			name="force-gamemode"
+			id="force-gamemode-false"
+			value="false"
+			checked="checked"
+		/>
+		<label for="force-gamemode-true">True</label>
+		<input
+			type="radio"
+			name="force-gamemode"
+			id="force-gamemode-true"
+			value="true"
+		/>
+	</div>
+	<br />
+	<div>
+		White list:
+		<label for="white-list-false">False</label>
+		<input
+			type="radio"
+			name="white-list"
+			id="white-list-false"
+			value="false"
+			checked="checked"
+		/>
+		<label for="white-list-true">True</label>
+		<input
+			type="radio"
+			name="white-list"
+			id="white-list-true"
+			value="true"
+		/>
+	</div>
+	<br />
+	<div>
+		PVP:
+		<label for="pvp-false">False</label>
+		<input type="radio" name="pvp" id="pvp-false" value="false" />
+		<label for="pvp-true">True</label>
+		<input
+			type="radio"
+			name="pvp"
+			id="pvp-true"
+			value="true"
+			checked="checked"
+		/>
+	</div>
+	<br />
+	<div>
+		Allow flight:
+		<label for="allow-flight-false">False</label>
+		<input
+			type="radio"
+			name="allow-flight"
+			id="allow-flight-false"
+			value="false"
+			checked="checked"
+		/>
+		<label for="allow-flight-true">True</label>
+		<input
+			type="radio"
+			name="allow-flight"
+			id="allow-flight-true"
+			value="true"
+		/>
+	</div>
+	<br />
+	<div>
+		Spawn monsters:
+		<label for="spawn-monsters-false">False</label>
+		<input
+			type="radio"
+			name="spawn-monsters"
+			id="spawn-monsters-false"
+			value="false"
+		/>
+		<label for="spawn-monsters-true">True</label>
+		<input
+			type="radio"
+			name="spawn-monsters"
+			id="spawn-monsters-true"
+			value="true"
+			checked="checked"
+		/>
+	</div>
+	<br />
+	<div>
+		Allow Nether:
+		<label for="allow-nether-false">False</label>
+		<input
+			type="radio"
+			name="allow-nether"
+			id="allow-nether-false"
+			value="false"
+		/>
+		<label for="allow-nether-true">True</label>
+		<input
+			type="radio"
+			name="allow-nether"
+			id="allow-nether-true"
+			value="true"
+			checked="checked"
+		/>
+	</div>
+	<br />
+	<div>
+		Spawn protection:
+		<input
+			name="spawn-protection"
+			id="spawn-protection"
+			type="number"
+			value="16"
+			min="0"
+			max="2147483647"
+		/>
+	</div>
+	<br />
+	<div>
+		Resource pack:
+		<input type="text" name="resource-pack" id="resource-pack" />
+	</div>
+	<br />
+	<div>
+		<input type="submit" value="Save" />
+	</div>
+</form>
+
+
+<button id="start-stop-button"></button>
+<div id="console-out" style="background-color: black;color: white;font-size: 12px; overflow-y: scroll; height: 100px;"></div>
+<div>
+    <input type="text" id="command" autofocus>
+    <button id="send-command">SEND</button>
+</div>
+Server version:<div id="version"></div>
+Available versions:<div id="version-links"></div>
+<button type="button" id="update-version-links-button">Update</button>
+
+Selected world:
+<div id="selected-world"></div>
+Available worlds:
+<div id="available-worlds"></div>
+Set world by name:
+<div>
+<form action="/cgi-bin/setWorld.py">
+	<input type="text" name="level-name">
+	<input type="submit" name="submit-level-name" value="set">
+</form>
+</div>
+Upload World folder in ZIP format:
+<form action="cgi-bin/uploadWorld.py" method="POST" enctype="multipart/form-data">
+	File: <input name="file" type="file" />
+	<br />
+	<input name="submit" type="submit" value="Upload World" />
+</form>
+
+
+
+
+
+<script type="text/javascript" src="./scripts/httpGet.js"></script>
+<script type="text/javascript" src="./scripts/worldManagement.js"></script>
+
+
+
+<script type="text/javascript" src="./scripts/httpGet.js"></script>
+<script type="text/javascript" src="./scripts/getVersion.js"></script>
+<script type="text/javascript" src="./scripts/versionLinks.js"></script>
+<script>
+// Get elements
+var startStopButton = document.getElementById("start-stop-button");
+var consoleOut = document.getElementById("console-out");
+var sendBtn = document.getElementById("send-command")
+var commandText = document.getElementById("command")
+
+// Utility functions
+function enableBtns(isEnabled){
+    startStopButton.disabled = !isEnabled;
+    sendBtn.disabled = !isEnabled || startStopButton.innerText == "Start";
+}
+
+function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function updateBtn(){
+    console.log("updating btn")
+    httpGetAsync("/cgi-bin/getServerStatus.py", async function(responseText){
+        console.log(responseText)
+        if (responseText.includes("Started")) {
+            startStopButton.innerText = "Stop";
+            enableBtns(true);
+        } else if (responseText.includes("Stopped")){
+            startStopButton.innerText = "Start";
+            enableBtns(true);
+        } else {
+            startStopButton.innerText = "Waiting...";
+            enableBtns(false);
+            await sleep(2000)
+            updateBtn()
+        }
+    })
+    httpGetAsync("/cgi-bin/getLastConsoleOutput.py",function(responseText){
+        consoleOut.innerText = responseText;
+        consoleOut.scrollHeight;
+    })
+}
+
+// Main
+updateBtn();
+consoleOut.scrollHeight;
+sendBtn.onclick = function(){
+    command = commandText.value
+    // btoa codifica en base 64
+    commandBase64 = btoa(command)
+    httpGetAsync("/cgi-bin/sendConsoleCommand.py?command="+commandBase64,function(responseText){
+            console.log(responseText)
+            updateBtn();
+    })
+    commandText.value = ""
+};
+
+startStopButton.onclick = function(){
+    console.log(startStopButton.innerText)
+    if (startStopButton.innerText == "Stop") {
+        enableBtns(false);
+        httpGetAsync("/cgi-bin/stopServer.py",function(){
+            updateBtn();
+        })
+    } else if (startStopButton.innerText == "Start"){
+        enableBtns(false);
+        httpGetAsync("/cgi-bin/startServer.py",function(){
+            updateBtn();
+        })
+    }
+}
+
+commandText.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    sendBtn.click();
+  }
+}); 
+
+</script>
+
+
+<script type="text/javascript" src="./scripts/httpGet.js"></script>
+<script type="text/javascript" src="./scripts/serverProperties.js"></script>
 
 <script>
 // Get elements
-var myBtn = document.getElementById("myBtn");
-var out = document.getElementById("out");
+var publicIp = document.getElementById("public-ip");
 
 // Utility functions
 function httpGetAsync(theUrl, callback)
@@ -23,11 +387,9 @@ function httpGetAsync(theUrl, callback)
 }
 
 // Main
-myBtn.addEventListener("click", function() {
-  httpGetAsync("/cgi-bin/preset.py", function(responseText){
-      out.innerText = responseText;
-  })
-});
+httpGetAsync("/cgi-bin/getPublicIp.py", function(responseText){
+    publicIp.innerText = responseText;
+})
 </script>
 
 </body>
