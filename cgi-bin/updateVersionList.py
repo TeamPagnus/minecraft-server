@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-CGI_DIR = "cgi_bin/"
-MINECRAFT_DIR = "minecraft/"
-
 import cgi
+import defs
 
 # Headers
 print("Content-Type: text/plain")
@@ -35,7 +33,7 @@ for i in range(len(versions)):
         if "server" in link["download"]:
             versions[i][1] = link["href"]
 
-with open(MINECRAFT_DIR + "/available-versions", "w") as f:
+with open(defs.MC_AVAILABLE_VERSION_PATH, "w") as f:
     for v in versions:
         f.write(f"{v[0]} {v[1]}\n")
 

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import cgi
+import defs
 
 # Headers
 print("Content-Type: text/plain")
@@ -14,31 +15,25 @@ cgitb.enable()
 
 JAVA_START = "java -Xmx1024M -Xms1024M -jar"
 JAVA_END =  "nogui"
-LOG_OUTPUT = "out.txt"
-MINECRAFT_DIR = "minecraft/"
-VERSION_FILE = "server-version"
 
 import os
 from subprocess import getoutput, run
 
-# cambiar workdir a minecraft
-os.chdir(MINECRAFT_DIR)
-
 # si esta iniciado el server, salir
-if "minecraftServer" in getoutput("screen -ls"):
+if defs.MC_SCREEN_PROCESS_NAME in getoutput("screen -ls"):
     exit()
 
 # aceptar eula por defecto
-getoutput("echo eula=true > eula.txt")
+getoutput(f"echo eula=true > {defs.MC_EULA_PATH}")
 
 # iniciar sesion screen
-getoutput("screen -dmS minecraftServer")
+getoutput(f"screen -dmS {defs.MC_SCREEN_PROCESS_NAME}")
 
 # generar comando
-version = getoutput(f"cat {VERSION_FILE}")
-cmd = f"{JAVA_START} minecraft_server.{version}.jar {JAVA_END} >> {LOG_OUTPUT}"
+version = getoutput(f"cat {defs.MC_SERVER_VERSION_PATH}")
+cmd = f"{JAVA_START} minecraft_server.{version}.jar {JAVA_END} >> {defs.MC_LOG_PATH}"
 
 # iniciar servidor de minecraft en la sesion de screen
-run(["screen", "-S",  "minecraftServer",  "-X", "stuff", f'{cmd}; exit\n'])
+run(["screen", "-S",  defs.MC_SCREEN_PROCESS_NAME,  "-X", "stuff", f'{cmd}; exit\n'])
 
 print("Start signal sent")

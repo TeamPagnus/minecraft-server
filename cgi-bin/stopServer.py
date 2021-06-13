@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import cgi
+import defs
 
 # Headers
 print("Content-Type: text/plain")
@@ -14,9 +15,9 @@ cgitb.enable()
 import subprocess
 
 ## si no esta iniciado el server, salir
-if not "minecraftServer" in subprocess.getoutput("screen -ls"):
+if not defs.MC_SCREEN_PROCESS_NAME in subprocess.getoutput("screen -ls"):
     exit()
 
-subprocess.run(["screen", "-S", "minecraftServer", "-X", "stuff", "stop\n"])
+subprocess.run(["screen", "-S", defs.MC_SCREEN_PROCESS_NAME, "-X", "stuff", "stop\n"])
 
 print("Stop signal sent")

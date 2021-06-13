@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import cgi
+import defs
 
 # Headers
 print("Content-Type: text/plain")
@@ -13,4 +14,4 @@ cgitb.enable()
 # Escribir Scripts de acá para abajo.
 from subprocess import getoutput
 
-print(getoutput("tail -n40 minecraft/out.txt"))
+print(getoutput(f"tail -n40 {defs.MC_LOG_PATH}"))

@@ -4,18 +4,17 @@
 # Generates server.properties by merging worldless-server.properties and
 # level-name.properties.
 
-CGI_DIR = "cgi_bin/"
-MINECRAFT_DIR = "minecraft/"
+import defs
 
 server_properties = ""
 
-with open(MINECRAFT_DIR + "worldless-server.properties", 'r') as f:
+with open(defs.MC_WORLDLESS_SP, 'r') as f:
     for l in f:
         server_properties += l
 
-with open(MINECRAFT_DIR + "level-name.properties", 'r') as f:
+with open(defs.MC_LEVEL_NAME_SP, 'r') as f:
     for l in f:
         server_properties += l
 
-with open(MINECRAFT_DIR + "server.properties", 'w') as f:
+with open(defs.MC_SERVER_PROPERTIES_PATH, 'w') as f:
     f.write(server_properties)

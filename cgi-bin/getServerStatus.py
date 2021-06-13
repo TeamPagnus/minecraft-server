@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import cgi
+import defs
 
 # Headers
 print("Content-Type: text/plain")
@@ -13,7 +14,7 @@ cgitb.enable()
 # Escribir Scripts de acá para abajo.
 from subprocess import getoutput
 
-lastLog = getoutput("tail -n40 minecraft/out.txt")
+lastLog = getoutput(f"tail -n40 {defs.MC_LOG_PATH}")
 
 def getStatus():
     """
@@ -22,7 +23,7 @@ def getStatus():
     """
 
     # Stopped
-    if not "minecraftServer" in getoutput("screen -ls"):
+    if not defs.MC_SCREEN_PROCESS_NAME in getoutput("screen -ls"):
         return "Stopped"
 
     # Waiting
