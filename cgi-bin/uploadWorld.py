@@ -1,10 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-CGI_DIR = "cgi_bin/"
-MINECRAFT_DIR = "minecraft/"
-
 import cgi
+import defs
 
 # Headers
 print("Content-Type: text/plain")
@@ -33,7 +31,7 @@ def save_uploaded_file():
         print('Not found parameter: file')
         return
 
-    uploaded_file_path = os.path.join(MINECRAFT_DIR, os.path.basename(form_file.filename))
+    uploaded_file_path = os.path.join(defs.MC_DIR, os.path.basename(form_file.filename))
     with open(uploaded_file_path, 'wb') as fout:
         while True:
             chunk = form_file.file.read(100000)
@@ -45,7 +43,7 @@ def save_uploaded_file():
 
 def unzip_file(file_path):
     with zipfile.ZipFile(file_path, 'r') as zip_ref:
-        zip_ref.extractall(MINECRAFT_DIR)
+        zip_ref.extractall(defs.MC_DIR)
     print("World extracted.")
 
 file_path = save_uploaded_file()

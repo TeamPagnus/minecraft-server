@@ -1,10 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-CGI_DIR = "cgi_bin/"
-MINECRAFT_DIR = "minecraft/"
-
 import cgi
+import defs
 
 # Headers
 print("Content-Type: text/html")
@@ -18,13 +16,13 @@ from os import walk
 import shutil
 
 def zip_world(world):
-    shutil.make_archive(MINECRAFT_DIR + f"{world}.zip", 'zip', MINECRAFT_DIR + world)
-    link = f"<a href=\"/{MINECRAFT_DIR + world}.zip\">{world}.zip</a> is ready to be downloaded."
+    shutil.make_archive(defs.MC_DIR + f"{world}.zip", 'zip', defs.MC_DIR + world)
+    link = f"<a href=\"/{defs.MC_DIR + world}.zip\">{world}.zip</a> is ready to be downloaded."
     print(link)
 
 EXCEPTION = ["logs"]
 
-worlds = next(walk(MINECRAFT_DIR))[1]
+worlds = next(walk(defs.MC_DIR))[1]
 for f in EXCEPTION:
     worlds.remove(f)
 

@@ -12,5 +12,5 @@ import cgitb
 cgitb.enable()
 
 # Escribir Scripts de acá para abajo.
-with open(defs.MC_SERVER_VERSION_PATH", "r") as f:
+with open(defs.MC_SERVER_VERSION_PATH, "r") as f:
     print(next(f))
