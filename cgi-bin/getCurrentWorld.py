@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-CGI_DIR = "cgi_bin/"
-MINECRAFT_DIR = "minecraft/"
-
 import cgi
+import defs
 
 # Headers
 print("Content-Type: text/plain")
@@ -14,5 +12,8 @@ import cgitb
 cgitb.enable()
 
 # Core.
-with open(MINECRAFT_DIR + "level-name.properties", 'r') as f:
-    print(f.read())
+try:
+    with open(defs.MC_LEVEL_NAME_PATH, 'r') as f:
+        print(f.read())
+except Exception:
+    print("level-name=world")

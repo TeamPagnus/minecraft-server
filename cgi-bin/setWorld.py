@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-CGI_DIR = "cgi_bin/"
-MINECRAFT_DIR = "minecraft/"
-
 import cgi
+import defs
 
 # Headers
 print("Content-Type: text/plain")
@@ -24,7 +22,7 @@ except Exception:
 
 level_name = f"level-name={world}"
 
-with open(MINECRAFT_DIR + "level-name.properties", 'w') as f:
+with open(defs.MC_LEVEL_NAME_PATH, 'w') as f:
     f.write(level_name)
 
 # Merge worldless-server.properties and level-name.properties into

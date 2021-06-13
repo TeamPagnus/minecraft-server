@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-CGI_DIR = "cgi_bin/"
-MINECRAFT_DIR = "minecraft/"
-
 import cgi
+import defs
 
 # Headers
 print("Content-Type: text/plain")
@@ -14,5 +12,9 @@ import cgitb
 cgitb.enable()
 
 # Escribir Scripts de acá para abajo.
-with open(MINECRAFT_DIR + "/available-versions", "r") as f:
-    print(f.read())
+try:
+    with open(defs.MC_AVAILABLE_VERSION_PATH, "r") as f:
+        print(f.read())
+
+except Exception:
+    pass

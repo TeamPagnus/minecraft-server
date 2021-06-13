@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-CGI_DIR = "cgi_bin/"
-MINECRAFT_DIR = "minecraft/"
-
 import cgi
+import defs
 
 # Headers
 print("Content-Type: text/plain")
@@ -31,7 +29,7 @@ def download_file(url, filename):
     return local_filename
 
 def fetch_version_url(version):
-    with open(MINECRAFT_DIR + "available-versions", 'r') as f:
+    with open(defs.MC_AVAILABLE_VERSION_PATH, 'r') as f:
         for l in f:
             data = l.split(' ')
             if data[0] == version:
@@ -39,7 +37,7 @@ def fetch_version_url(version):
     return None
 
 def version_is_installed(version):
-    files = next(walk(MINECRAFT_DIR))[-1]
+    files = next(walk(defs.MC_DIR))[-1]
     if f"minecraft_server.{version}.jar" in files:
         return True
     return False
@@ -55,11 +53,11 @@ except Exception:
 if not version_is_installed(version):
     download_file(
         fetch_version_url(version),
-        MINECRAFT_DIR + f"minecraft_server.{version}.jar"
+        defs.MC_DIR + f"minecraft_server.{version}.jar"
     )
     print(f"{version} was installed.")
 
-with open(MINECRAFT_DIR + "server-version", 'w') as f:
+with open(defs.MC_SERVER_VERSION_PATH, 'w') as f:
     f.write(version)
 
 print(f"Version {version} will be used.")

@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-CGI_DIR = "cgi_bin/"
-MINECRAFT_DIR = "minecraft/"
-
 import cgi
+import defs
 
 # Headers
 print("Content-Type: text/plain")
@@ -19,7 +17,7 @@ import shutil
 
 EXCEPTION = ["logs"]
 
-worlds = next(walk(MINECRAFT_DIR))[1]
+worlds = next(walk(defs.MC_DIR))[1]
 for f in EXCEPTION:
     worlds.remove(f)
 
@@ -39,6 +37,6 @@ if world not in worlds:
     print("Wrong request.")
     assert False
 
-shutil.rmtree(MINECRAFT_DIR + world)
+shutil.rmtree(defs.MC_DIR + world)
 
 print(f"World {world} removed.")
