@@ -3,14 +3,25 @@
 <body>
 
 <button id="myBtn"></button>
-<div id="out" style="background-color: black;color: white;font-size: 12px;"></div>
+<div id="out" style="background-color: black;color: white;font-size: 12px; overflow-y: scroll; height: 300px;"></div>
+<div>
+    <input type="text" id="command" autofocus>
+    <button id="send-command">SEND</button>
+</div>
 
 <script>
 // Get elements
 var myBtn = document.getElementById("myBtn");
 var out = document.getElementById("out");
+var sendBtn = document.getElementById("send-command")
+var commandText = document.getElementById("command")
 
 // Utility functions
+function enableBtns(isEnabled){
+    myBtn.disabled = !isEnabled;
+    sendBtn.disabled = !isEnabled || myBtn.innerText == "Start";
+}
+
 function httpGetAsync(theUrl, callback)
 {
     var xmlHttp = new XMLHttpRequest();
@@ -32,39 +43,61 @@ function updateBtn(){
         console.log(responseText)
         if (responseText.includes("Started")) {
             myBtn.innerText = "Stop";
-            myBtn.disabled = false;
+            enableBtns(true);
         } else if (responseText.includes("Stopped")){
             myBtn.innerText = "Start";
-            myBtn.disabled = false;
+            enableBtns(true);
         } else {
             myBtn.innerText = "Waiting...";
-            myBtn.disabled = true;
+            enableBtns(false);
             await sleep(2000)
             updateBtn()
         }
     })
     httpGetAsync("/cgi-bin/getLastConsoleOutput.py",function(responseText){
         out.innerText = responseText;
+        out.scrollHeight;
     })
 }
 
 // Main
-updateBtn()
+updateBtn();
+out.scrollHeight;
+sendBtn.onclick = function(){
+    command = commandText.value
+    // btoa codifica en base 64
+    commandBase64 = btoa(command)
+    httpGetAsync("/cgi-bin/sendConsoleCommand.py?command="+commandBase64,function(responseText){
+            console.log(responseText)
+            updateBtn();
+    })
+    commandText.value = ""
+};
 
 myBtn.onclick = function(){
     console.log(myBtn.innerText)
     if (myBtn.innerText == "Stop") {
-        myBtn.disabled = true;
+        enableBtns(false);
         httpGetAsync("/cgi-bin/stopServer.py",function(){
             updateBtn();
         })
     } else if (myBtn.innerText == "Start"){
-        myBtn.disabled = true;
+        enableBtns(false);
         httpGetAsync("/cgi-bin/startServer.py",function(){
             updateBtn();
         })
     }
 }
+
+commandText.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    sendBtn.click();
+  }
+}); 
 
 </script>
 
