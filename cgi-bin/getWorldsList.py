@@ -18,9 +18,12 @@ from os import walk
 
 EXCEPTION = ["logs"]
 
-worlds = next(walk(MINECRAFT_DIR))[1]
-for f in EXCEPTION:
-    worlds.remove(f)
+try:
+    worlds = next(walk(MINECRAFT_DIR))[1]
+    for f in EXCEPTION:
+        worlds.remove(f)
 
-for w in worlds:
-    print(w)
+    for w in worlds:
+        print(w)
+except Exception:
+    pass

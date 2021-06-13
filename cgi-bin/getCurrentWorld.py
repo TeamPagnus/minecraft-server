@@ -14,5 +14,8 @@ import cgitb
 cgitb.enable()
 
 # Core.
-with open(MINECRAFT_DIR + "level-name.properties", 'r') as f:
-    print(f.read())
+try:
+    with open(MINECRAFT_DIR + "level-name.properties", 'r') as f:
+        print(f.read())
+except Exception:
+    print("level-name=world")
