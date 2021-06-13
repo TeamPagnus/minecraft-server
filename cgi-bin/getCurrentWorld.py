@@ -13,7 +13,7 @@ cgitb.enable()
 
 # Core.
 try:
-    with open(def.MC_LEVEL_NAME_PATH, 'r') as f:
+    with open(defs.MC_LEVEL_NAME_PATH, 'r') as f:
         print(f.read())
 except Exception:
     print("level-name=world")

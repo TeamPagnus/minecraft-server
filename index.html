@@ -343,13 +343,15 @@ startStopButton.onclick = function(){
     console.log(startStopButton.innerText)
     if (startStopButton.innerText == "Stop") {
         enableBtns(false);
-        httpGetAsync("/cgi-bin/stopServer.py",function(){
+        httpGetAsync("/cgi-bin/stopServer.py",function(responseText){
+			console.log(responseText);
             updateBtn();
         })
     } else if (startStopButton.innerText == "Start"){
         enableBtns(false);
-        httpGetAsync("/cgi-bin/startServer.py",function(){
-            updateBtn();
+        httpGetAsync("/cgi-bin/startServer.py",function(responseText){
+            console.log(responseText)
+			updateBtn();
         })
     }
 }
