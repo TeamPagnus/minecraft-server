@@ -28,7 +28,7 @@ print(getoutput(f"echo eula=true > {defs.MC_EULA_PATH}"))
 
 # generar comando
 version = getoutput(f"cat {defs.MC_SERVER_VERSION_PATH}")
-cmd = f"{JAVA_START} minecraft_server.{version}.jar {JAVA_END} >> out.txt &>> out.txt"
+cmd = f"{JAVA_START} minecraft_server.{version}.jar {JAVA_END} >> {defs.MC_OUT_LOG_FILENAME} &>> {defs.MC_OUT_LOG_FILENAME}"
 
 # iniciar servidor de minecraft en la sesion de screen
 os.chdir(defs.MC_DIR)
