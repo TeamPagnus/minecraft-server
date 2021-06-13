@@ -12,5 +12,8 @@ import cgitb
 cgitb.enable()
 
 # Core.
-with open(MC_SERVER_PROPERTIES_PATH, 'r') as f:
-    print(f.read())
+try:
+    with open(def.MC_LEVEL_NAME_PATH, 'r') as f:
+        print(f.read())
+except Exception:
+    print("level-name=world")
