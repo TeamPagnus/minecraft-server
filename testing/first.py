@@ -11,6 +11,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.firefox.options import Options
 
 class ScreenProcess:
 
@@ -34,7 +35,9 @@ class PythonOrgSearch(unittest.TestCase):
         except FileNotFoundError:
             pass
         os.mkdir("../minecraft")
-        self.driver = webdriver.Firefox()
+        options = Options()
+        options.headless = True
+        self.driver = webdriver.Firefox(options=options)
 
     def test_happy_path(self):
         driver = self.driver
@@ -42,7 +45,7 @@ class PythonOrgSearch(unittest.TestCase):
         self.assertIn("MinecraftServerManager", driver.title)
         ## wait for update-version-links-button
         e = (By.ID, "update-version-links-button")
-        w = WebDriverWait(driver, 10)
+        w = WebDriverWait(driver, 200)
         element = w.until(EC.presence_of_element_located(e))
         #press it
         element.click()
@@ -71,10 +74,8 @@ class PythonOrgSearch(unittest.TestCase):
         e = (By.CSS_SELECTOR, "button#start-stop-button") 
         element = w.until(EC.text_to_be_present_in_element(e, "Waiting"))
 
-        longWait = WebDriverWait(driver, 100)
-
         e = (By.CSS_SELECTOR, "#console-out") 
-        element = longWait.until(EC.text_to_be_present_in_element(e, "Done"))
+        element = w.until(EC.text_to_be_present_in_element(e, "Done"))
 
         e = (By.CSS_SELECTOR, "button#start-stop-button") 
         element = w.until(EC.text_to_be_present_in_element(e, "Stop"))
