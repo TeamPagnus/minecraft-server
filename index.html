@@ -388,8 +388,10 @@
       }
 
       // Main
-      httpGetAsync("/cgi-bin/getPublicIp.py", function (responseText) {
-        publicIp.innerText = responseText;
+      httpGetAsync("/cgi-bin/getPublicIp.py", function (responseJSON) {
+		res = JSON.parse(responseJSON)["ip-address"];
+		 console.log(res);
+        publicIp.innerText = res;
       });
     </script>
   </body>
