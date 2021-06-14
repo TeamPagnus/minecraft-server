@@ -37,12 +37,9 @@ function fillText(key, value) {
 	}
 }
 
-function updateServerProperties(response) {
-	response = response.split("\n");
-	for (l of response) {
-		property = l.split("=");
-		key = property[0];
-		value = property[1];
+function updateServerProperties(responseJSON) {
+	response = JSON.parse(responseJSON)["server-properties"];
+	for (const [key, value] of Object.entries(response)) {
 		fillNumbers(key, value);
 		fillSelects(key, value);
 		fillRadios(key, value);

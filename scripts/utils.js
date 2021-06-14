@@ -7,3 +7,7 @@ function httpGetAsync(theUrl, callback) {
 	xmlHttp.open("GET", theUrl, true); // true for asynchronous
 	xmlHttp.send(null);
 }
+
+function sleep(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
