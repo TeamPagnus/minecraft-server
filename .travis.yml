@@ -2,7 +2,7 @@ language: python
 before_install:
  - sudo apt update
  - sudo apt install firefox-geckodriver
- - sudo apt install openjdk-15-jre
+ - sudo apt install default-jre-headless
  - sudo apt install screen
 python:
   - 3.9
