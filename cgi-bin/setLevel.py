@@ -1,26 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import base64
 import cgi
 import defs
 import utils
 
 def core(response):
-    if utils.server_is_alive():
-        command = base64.b64decode(commandEncoded).decode('utf-8')
-        utils.send_command(command)
+    utils.set_level(level_name)
+    response["level-name"] = level_name
     response["success"] = "true"
     utils.respond_in_json(response)
 
 ARGS = cgi.FieldStorage()
 RESPONSE = dict()
-SCRIPT_NAME = "sendConsoleCommand.py"
+SCRIPT_NAME = "setLevel.py"
 
-command_encoded = utils.extract_data(ARGS, "command")
+level_name = utils.extract_data(ARGS, "level-name")
 
-if not command_encoded:
+if not level_name:
     utils.log_error(RESPONSE, SCRIPT_NAME, defs.W_FIELD_NOT_FOUND)
+if '/' in level_name:
+    utils.log_error(RESPONSE, SCRIPT_NAME, defs.W_INVALID_FIELD_FORMAT)
 else:
     try:
         core(RESPONSE)

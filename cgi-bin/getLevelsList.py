@@ -4,13 +4,16 @@
 import utils
 
 def core(response):
-    version = utils.get_selected_version()
-    response["server-version"] = version
+    levels = []
+    for l in LEVELS:
+        levels.append({"level-name": l})
+    response["levels"] = levels
     response["success"] = "true"
     utils.respond_in_json(response)
 
+LEVELS = utils.get_levels()
 RESPONSE = dict()
-SCRIPT_NAME = "getVersion.py"
+SCRIPT_NAME = "getLevelsList.py"
 
 try:
     core(RESPONSE)

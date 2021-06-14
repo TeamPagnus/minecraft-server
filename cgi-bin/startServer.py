@@ -1,38 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import cgi
-import defs
+import utils
 
-# Headers
-print("Content-Type: text/plain")
-print()
+def core(response):
+    utils.start_server()
+    response["success"] = "true"
+    utils.respond_in_json(response)
 
-import cgitb
-cgitb.enable()
+RESPONSE = dict()
+SCRIPT_NAME = "startServer.py"
 
-# Escribir Scripts de acá para abajo.
-
-JAVA_START = "java -Xmx1024M -Xms1024M -jar"
-JAVA_END =  "nogui"
-
-import os
-from subprocess import getoutput, run
-
-# si esta iniciado el server, salir
-if defs.MC_SCREEN_PROCESS_NAME in getoutput("screen -ls"):
-    print("already exists")
-
-# aceptar eula por defecto
-print(getoutput(f"echo eula=true > {defs.MC_EULA_PATH}"))
-
-# generar comando
-version = getoutput(f"cat {defs.MC_SERVER_VERSION_PATH}")
-cmd = f"{JAVA_START} minecraft_server.{version}.jar {JAVA_END} >> {defs.MC_OUT_LOG_FILENAME} &>> {defs.MC_OUT_LOG_FILENAME}"
-
-# iniciar servidor de minecraft en la sesion de screen
-os.chdir(defs.MC_DIR)
-print(getoutput(f"screen -dmS {defs.MC_SCREEN_PROCESS_NAME}"))
-run(["screen", "-S",  defs.MC_SCREEN_PROCESS_NAME,  "-X", "stuff", f'{cmd}; exit\n'])
-
-print("Start signal sent")
+try:
+    core(RESPONSE)
+except Exception as e:
+    utils.log_exception(RESPONSE, SCRIPT_NAME, e)

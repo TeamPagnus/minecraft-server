@@ -1,40 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import cgi
-import defs
+import utils
 
-# Headers
-print("Content-Type: text/plain")
-print()
+def core(response):
+    versions = utils.update_downloadable_versions_list()
+    response["versions"] = versions
+    response["success"] = "true"
+    utils.respond_in_json(response)
 
-import cgitb
-cgitb.enable()
+RESPONSE = dict()
+SCRIPT_NAME = "updateVersionList.py"
 
-# Core.
-from bs4 import BeautifulSoup
-import requests as r
-
-MCVERSIONS_URL = "https://mcversions.net/"
-
-res = r.get(MCVERSIONS_URL)
-soup = BeautifulSoup(res.content, "html5lib")
-
-versions = []
-for version in soup.findAll(True, {"data-version": True}):
-    versions.append([version["data-version"], None])
-
-versions = versions[:10] # Truncate versions to improve latency.
-
-for i in range(len(versions)):
-    res = r.get(f"{MCVERSIONS_URL}/download/{versions[i][0]}")
-    soup = BeautifulSoup(res.content, "html5lib")
-    for link in soup.findAll(True, {"download": True}):
-        if "server" in link["download"]:
-            versions[i][1] = link["href"]
-
-with open(defs.MC_AVAILABLE_VERSION_PATH, "w") as f:
-    for v in versions:
-        f.write(f"{v[0]} {v[1]}\n")
-
-print("Version list updated.")
+try:
+    core(RESPONSE)
+except Exception as e:
+    utils.log_exception(RESPONSE, SCRIPT_NAME, e)

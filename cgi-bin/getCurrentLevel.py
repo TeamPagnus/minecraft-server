@@ -4,13 +4,13 @@
 import utils
 
 def core(response):
-    version = utils.get_selected_version()
-    response["server-version"] = version
+    level = utils.get_current_level()
+    response["level-name"] = level
     response["success"] = "true"
     utils.respond_in_json(response)
 
 RESPONSE = dict()
-SCRIPT_NAME = "getVersion.py"
+SCRIPT_NAME = "getCurrentLevel.py"
 
 try:
     core(RESPONSE)

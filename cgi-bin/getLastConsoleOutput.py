@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import cgi
-import defs
-
-# Headers
-print("Content-Type: text/plain")
-print()
-
-import cgitb
-cgitb.enable()
-
-# Escribir Scripts de acá para abajo.
 from subprocess import getoutput
+import defs
+import utils
 
-print(getoutput(f"tail -n40 {defs.MC_LOG_PATH}"))
+def core(response):
+    console_output = getoutput(f"tail -n40 {defs.MC_LOG_PATH}")
+    response["success"] = "true"
+    response["console-output"] = console_output
+    utils.respond_in_json(response)
+
+RESPONSE = dict()
+SCRIPT_NAME = "getLastConsoleOutput.py"
+
+try:
+    core(RESPONSE)
+except Exception as e:
+    utils.log_exception(RESPONSE, SCRIPT_NAME, e)

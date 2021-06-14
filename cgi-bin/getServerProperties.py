@@ -1,19 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import cgi
-import defs
+import utils
 
-# Headers
-print("Content-Type: text/plain")
-print()
+def core(response):
+    server_properties = utils.get_server_properties()
+    response["server-properties"] = server_properties
+    response["success"] = "true"
+    utils.respond_in_json(response)
 
-import cgitb
-cgitb.enable()
+RESPONSE = dict()
+SCRIPT_NAME = "getServerProperties.py"
 
-server_properties = ""
-with open(defs.MC_SERVER_PROPERTIES_PATH, 'r') as f:
-    for l in f:
-        server_properties += l
-
-print(server_properties)
+try:
+    core(RESPONSE)
+except Exception as e:
+    utils.log_exception(RESPONSE, SCRIPT_NAME, e)

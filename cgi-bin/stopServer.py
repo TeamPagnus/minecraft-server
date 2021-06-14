@@ -1,23 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import cgi
-import defs
+import utils
 
-# Headers
-print("Content-Type: text/plain")
-print()
+def core(response):
+    utils.stop_server()
+    response["success"] = "true"
+    utils.respond_in_json(response)
 
-import cgitb
-cgitb.enable()
+RESPONSE = dict()
+SCRIPT_NAME = "stopServer.py"
 
-# Escribir Scripts de acá para abajo.
-import subprocess
-
-## si no esta iniciado el server, salir
-if not defs.MC_SCREEN_PROCESS_NAME in subprocess.getoutput("screen -ls"):
-    exit()
-
-subprocess.run(["screen", "-S", defs.MC_SCREEN_PROCESS_NAME, "-X", "stuff", "stop\n"])
-
-print("Stop signal sent")
+try:
+    core(RESPONSE)
+except Exception as e:
+    utils.log_exception(RESPONSE, SCRIPT_NAME, e)

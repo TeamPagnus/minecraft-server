@@ -66,8 +66,7 @@ class PythonOrgSearch(unittest.TestCase):
         element.click()
         print("version-link (3) clicked")
 
-        e = (By.CSS_SELECTOR, "html body pre") 
-        element = w.until(EC.text_to_be_present_in_element(e, "was installed"))
+        element = w.until(EC.url_contains("setVersion.py"))
         print("was installed")
 
         driver.back()

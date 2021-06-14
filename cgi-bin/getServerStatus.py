@@ -1,35 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import cgi
-import defs
-
-# Headers
-print("Content-Type: text/plain")
-print()
-
-import cgitb
-cgitb.enable()
-
-# Escribir Scripts de acá para abajo.
 from subprocess import getoutput
+import utils
 
-#lastLog = getoutput(f"tail -n40 {defs.MC_LOG_PATH}")
-doneCount = getoutput(f"cat {defs.MC_LOG_PATH} | grep 'Done' | wc -l")
-stopCount = getoutput(f"cat {defs.MC_LOG_PATH} | grep 'Stopping the server' | wc -l")
+def core(response):
+    server_status = utils.get_server_status()
+    response["server-status"] = server_status
+    response["success"] = "true"
+    utils.respond_in_json(response)
 
-def getStatus():
-    """
-    Hay 3 estados posibles:
-    Started, Stopped, Waiting
-    """
+RESPONSE = dict()
+SCRIPT_NAME = "getServerStatus.py"
 
-    if not defs.MC_SCREEN_PROCESS_NAME in getoutput("screen -ls"):
-        return "Stopped"
-
-    if doneCount > stopCount:
-        return "Started"
-
-    return "Waiting"
-
-print(getStatus())
+try:
+    core(RESPONSE)
+except Exception as e:
+    utils.log_exception(RESPONSE, SCRIPT_NAME, e)
