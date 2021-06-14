@@ -131,28 +131,19 @@ def server_is_alive():
     return defs.MC_SCREEN_PROCESS_NAME in getoutput("screen -ls")
 
 def get_server_status():
-    lastLog = getoutput(f"tail -n40 {defs.MC_LOG_PATH}")
+    doneCount = getoutput(f"cat {defs.MC_LOG_PATH} | grep 'Done' | wc -l")
+    stopCount = getoutput(f"cat {defs.MC_LOG_PATH} | grep 'Stopping the server' | wc -l")
     """
     Hay 3 estados posibles:
     Started, Stopped, Waiting
     """
-    # Stopped
     if not defs.MC_SCREEN_PROCESS_NAME in getoutput("screen -ls"):
         return "stopped"
 
-    # Waiting
-    if "Stopping the server" in lastLog:
-        return "waiting"
+    if doneCount > stopCount:
+        return "started"
 
-    # Started & Waiting
-    if "Preparing spawn area" in lastLog:
-        if "Done" in lastLog:
-            return "started"
-        else:
-            return "waiting"
-
-    # Default started, the server has a lot of log
-    return "started"
+    return "waiting"
 
 def send_command(command):
     getoutput(f"screen -S {defs.MC_SCREEN_PROCESS_NAME} -X stuff '{command}\n'")
