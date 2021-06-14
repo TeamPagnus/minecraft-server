@@ -302,11 +302,12 @@
         httpGetAsync(
           "/cgi-bin/getServerStatus.py",
           async function (responseText) {
+			res = JSON.parse(responseText)["server-status"]
             console.log(responseText);
-            if (responseText.includes("Started")) {
+            if (responseText.includes("started")) {
               startStopButton.innerText = "Stop";
               enableBtns(true);
-            } else if (responseText.includes("Stopped")) {
+            } else if (responseText.includes("stopped")) {
               startStopButton.innerText = "Start";
               enableBtns(true);
             } else {
@@ -320,7 +321,8 @@
         httpGetAsync(
           "/cgi-bin/getLastConsoleOutput.py",
           function (responseText) {
-            consoleOut.innerText = responseText;
+			res = JSON.parse(responseText)["console-output"]
+            consoleOut.innerText = res;
             consoleOut.scrollHeight;
           }
         );

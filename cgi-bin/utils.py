@@ -267,7 +267,7 @@ def start_server():
     command = f"{JAVA_START} minecraft_server.{version}.jar {JAVA_END} >> {defs.MC_OUT_LOG_FILENAME} &>> {defs.MC_OUT_LOG_FILENAME}"
     os.chdir(defs.MC_DIR)
     getoutput(f"screen -dmS {defs.MC_SCREEN_PROCESS_NAME}")
-    run(["screen", "-S",  defs.MC_SCREEN_PROCESS_NAME,  "-X", "stuff", f'{cmd}; exit\n'])
+    run(["screen", "-S",  defs.MC_SCREEN_PROCESS_NAME,  "-X", "stuff", f'{command}; exit\n'])
     return
 
 def stop_server():

@@ -4,16 +4,16 @@ function generateVersionLink(version) {
 }
 
 function parseGetVersionList(raw) {
-	var versionLinkArray = raw.split("\n");
 	var versionList = [];
-	versionLinkArray.forEach((e) => {
-		versionList.push(e.split(" ")[0]);
+	raw.forEach((e) => {
+		versionList.push(e["version"]);
 	});
 	return versionList;
 }
 
 function getVersionLinks() {
-	httpGetAsync("/cgi-bin/getVersionList.py", (res) => {
+	httpGetAsync("/cgi-bin/getVersionList.py", (responseJSON) => {
+		res = JSON.parse(responseJSON)["versions"]
 		var versionList = parseGetVersionList(res);
 		document.getElementById("version-links").innerHTML = "";
 		versionList.forEach((e) => {
