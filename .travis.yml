@@ -1,0 +1,12 @@
+language: python
+before_install:
+ - sudo apt update
+ - sudo apt install firefox-geckodriver
+ - sudo apt install default-jre-headless
+ - sudo apt install screen
+python:
+  - 3.9
+install:
+  - pip install bs4 selenium ipaddress requests html5lib
+script:
+  - cd testing && python first.py

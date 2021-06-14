@@ -48,50 +48,61 @@ class PythonOrgSearch(unittest.TestCase):
         driver = self.driver
         driver.get("http://localhost:8000/")
         self.assertIn("MinecraftServerManager", driver.title)
+        print("title ok")
 
-        w = WebDriverWait(driver, 200)
+        w = WebDriverWait(driver, 2000)
         e = (By.ID, "public-ip")
         element = w.until(EC.visibility_of_element_located(e))
-
-        # check if it is a valid ip
         ipaddress.ip_address(element.text)
+        print("public ip ok")
 
         e = (By.ID, "update-version-links-button")
         element = w.until(EC.presence_of_element_located(e))
         element.click()
+        print("update-version-links-button clicked")
 
         e = (By.CSS_SELECTOR, "#version-links > a:nth-child(3)")
         element = w.until(EC.presence_of_element_located(e))
         element.click()
+        print("version-link (3) clicked")
 
         e = (By.CSS_SELECTOR, "html body pre") 
         element = w.until(EC.text_to_be_present_in_element(e, "was installed"))
+        print("was installed")
 
         driver.back()
         driver.refresh()
 
         e = (By.CSS_SELECTOR, "button#start-stop-button") 
         startStopButton = w.until(EC.presence_of_element_located(e))
+        print("start stop button found")
 
         e = (By.CSS_SELECTOR, "button#start-stop-button") 
         element = w.until(EC.text_to_be_present_in_element(e, "Start"))
         startStopButton.click()
+        print("start button pressed")
 
         e = (By.CSS_SELECTOR, "button#start-stop-button") 
         element = w.until(EC.text_to_be_present_in_element(e, "Waiting"))
+        print("waiting found")
 
         e = (By.CSS_SELECTOR, "#console-out") 
         element = w.until(EC.text_to_be_present_in_element(e, "Done"))
+        print("done found")
 
         e = (By.CSS_SELECTOR, "button#start-stop-button") 
         element = w.until(EC.text_to_be_present_in_element(e, "Stop"))
         startStopButton.click()
+        print("sotp clicked")
 
         e = (By.CSS_SELECTOR, "button#start-stop-button") 
         element = w.until(EC.text_to_be_present_in_element(e, "Waiting"))
+        print("waiting found")
+
 
         e = (By.CSS_SELECTOR, "button#start-stop-button") 
         element = w.until(EC.text_to_be_present_in_element(e, "Start"))
+        print("started found")
 
     def tearDown(self):
         self.driver.close()
