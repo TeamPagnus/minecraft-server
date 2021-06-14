@@ -1,3 +1,7 @@
+job:
+ include:
+  if: branch = master
+
 language: python
 before_install:
  - sudo apt update
