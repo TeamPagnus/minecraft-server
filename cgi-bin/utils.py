@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
-from os import walk
 from subprocess import getoutput, run
 import defs
 import json
 import os
 import requests
 import shutil
+import zipfile
 
 def respond_in_json(payload):
     print("Content-Type: application/json")
@@ -49,7 +49,7 @@ def get_downloadable_versions():
 
 def get_installed_versions():
     try:
-        files = next(walk(defs.MC_DIR))[-1]
+        files = next(os.walk(defs.MC_DIR))[-1]
     except Exception:
         return []
     else:
@@ -101,7 +101,7 @@ def fetch_version_url(version):
     return None
 
 def version_is_installed(version):
-    files = next(walk(defs.MC_DIR))[-1]
+    files = next(os.walk(defs.MC_DIR))[-1]
     if f"minecraft_server.{version}.jar" in files:
         return True
     return False
@@ -154,6 +154,9 @@ def get_current_level():
             level = f.read().strip()
     except Exception:
         level = "level-name=world"
+        with open(defs.MC_LEVEL_NAME_PATH, 'w') as f:
+            f.write(level)
+
     level = '='.join(level.split('=')[1:])
     return level
 
@@ -161,7 +164,7 @@ def get_levels():
     EXCEPTION = ["logs"]
 
     try:
-        levels = next(walk(defs.MC_DIR))[1]
+        levels = next(os.walk(defs.MC_DIR))[1]
     except Exception:
         levels = []
 
@@ -174,13 +177,14 @@ def get_levels():
     return levels
 
 def zip_level(level):
-    shutil.make_archive(defs.MC_DIR + f"{level}.zip", 'zip', defs.MC_DIR + level)
+    shutil.make_archive(defs.MC_DIR + f"{level}", 'zip', defs.MC_DIR + level)
     url = f"/{defs.MC_DIR + level}.zip"
     return url
 
 def unzip_file(file_path):
     with zipfile.ZipFile(file_path, 'r') as zip_ref:
-        zip_ref.extractall(defs.MC_DIR)
+        filename = '.'.join(zip_ref.filename.split('.')[:-1])
+        zip_ref.extractall(filename)
 
 def delete_level(level_name):
     shutil.rmtree(defs.MC_DIR + level_name)
