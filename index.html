@@ -1,274 +1,283 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>MinecraftServerManager</title>
-	</head>
-	<body>
-		<div id="public-ip"></div>
-		<form action="/cgi-bin/setServerProperties.py" method="POST">
-			<div>
-				Max Players:
-				<input
-					name="max-players"
-					id="max-players"
-					type="number"
-					value="20"
-					min="0"
-					max="2147483647"
-				/>
-			</div>
-			<div>
-				Difficulty:
-				<select name="difficulty" id="difficulty">
-					<option value="peaceful">Peaceful</option>
-					<option value="easy" selected="selected">Easy</option>
-					<option value="normal">Normal</option>
-					<option value="hard">Hard</option>
-				</select>
-			</div>
-			<div>
-				Online mode:
-				<label for="online-mode-false">False</label>
-				<input
-					type="radio"
-					name="online-mode"
-					id="online-mode-false"
-					value="false"
-				/>
-				<label for="online-mode-true">True</label>
-				<input
-					type="radio"
-					name="online-mode"
-					id="online-mode-true"
-					value="true"
-					checked="checked"
-				/>
-			</div>
-			<div>
-				Enable command block:
-				<label for="enable-command-block-false">False</label>
-				<input
-					type="radio"
-					name="enable-command-block"
-					id="enable-command-block-false"
-					value="false"
-					checked="checked"
-				/>
-				<label for="enable-command-block-true">True</label>
-				<input
-					type="radio"
-					name="enable-command-block"
-					id="enable-command-block-true"
-					value="true"
-				/>
-			</div>
-			<div>
-				Spawn Animals:
-				<label for="spawn-animals-false">False</label>
-				<input
-					type="radio"
-					name="spawn-animals"
-					id="spawn-animals-false"
-					value="false"
-				/>
-				<label for="spawn-animals-true">True</label>
-				<input
-					type="radio"
-					name="spawn-animals"
-					id="spawn-animals-true"
-					value="true"
-					checked="checked"
-				/>
-			</div>
-			<div>
-				Spawn NPCs:
-				<label for="spawn-npcs-false">False</label>
-				<input
-					type="radio"
-					name="spawn-npcs"
-					id="spawn-npcs-false"
-					value="false"
-				/>
-				<label for="spawn-npcs-true">True</label>
-				<input
-					type="radio"
-					name="spawn-npcs"
-					id="spawn-npcs-true"
-					value="true"
-					checked="checked"
-				/>
-			</div>
-			<div>
-				Force gamemode:
-				<label for="force-gamemode-false">False</label>
-				<input
-					type="radio"
-					name="force-gamemode"
-					id="force-gamemode-false"
-					value="false"
-					checked="checked"
-				/>
-				<label for="force-gamemode-true">True</label>
-				<input
-					type="radio"
-					name="force-gamemode"
-					id="force-gamemode-true"
-					value="true"
-				/>
-			</div>
-			<div>
-				White list:
-				<label for="white-list-false">False</label>
-				<input
-					type="radio"
-					name="white-list"
-					id="white-list-false"
-					value="false"
-					checked="checked"
-				/>
-				<label for="white-list-true">True</label>
-				<input
-					type="radio"
-					name="white-list"
-					id="white-list-true"
-					value="true"
-				/>
-			</div>
-			<div>
-				PVP:
-				<label for="pvp-false">False</label>
-				<input type="radio" name="pvp" id="pvp-false" value="false" />
-				<label for="pvp-true">True</label>
-				<input
-					type="radio"
-					name="pvp"
-					id="pvp-true"
-					value="true"
-					checked="checked"
-				/>
-			</div>
-			<div>
-				Allow flight:
-				<label for="allow-flight-false">False</label>
-				<input
-					type="radio"
-					name="allow-flight"
-					id="allow-flight-false"
-					value="false"
-					checked="checked"
-				/>
-				<label for="allow-flight-true">True</label>
-				<input
-					type="radio"
-					name="allow-flight"
-					id="allow-flight-true"
-					value="true"
-				/>
-			</div>
-			<div>
-				Spawn monsters:
-				<label for="spawn-monsters-false">False</label>
-				<input
-					type="radio"
-					name="spawn-monsters"
-					id="spawn-monsters-false"
-					value="false"
-				/>
-				<label for="spawn-monsters-true">True</label>
-				<input
-					type="radio"
-					name="spawn-monsters"
-					id="spawn-monsters-true"
-					value="true"
-					checked="checked"
-				/>
-			</div>
-			<div>
-				Allow Nether:
-				<label for="allow-nether-false">False</label>
-				<input
-					type="radio"
-					name="allow-nether"
-					id="allow-nether-false"
-					value="false"
-				/>
-				<label for="allow-nether-true">True</label>
-				<input
-					type="radio"
-					name="allow-nether"
-					id="allow-nether-true"
-					value="true"
-					checked="checked"
-				/>
-			</div>
-			<div>
-				Spawn protection:
-				<input
-					name="spawn-protection"
-					id="spawn-protection"
-					type="number"
-					value="16"
-					min="0"
-					max="2147483647"
-				/>
-			</div>
-			<div>
-				Resource pack:
-				<input type="text" name="resource-pack" id="resource-pack" />
-			</div>
-			<div>
-				<input type="submit" value="Save" />
-			</div>
-		</form>
+    <head>
+        <title>MinecraftServerManager</title>
+    </head>
+    <body>
+        <div id="public-ip"></div>
+        <form action="/cgi-bin/setServerProperties.py" method="POST">
+            <div>
+                Max Players:
+                <input
+                    name="max-players"
+                    id="max-players"
+                    type="number"
+                    value="20"
+                    min="0"
+                    max="2147483647"
+                />
+            </div>
+            <div>
+                Difficulty:
+                <select name="difficulty" id="difficulty">
+                    <option value="peaceful">Peaceful</option>
+                    <option value="easy" selected="selected">Easy</option>
+                    <option value="normal">Normal</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            <div>
+                Online mode:
+                <label for="online-mode-false">False</label>
+                <input
+                    type="radio"
+                    name="online-mode"
+                    id="online-mode-false"
+                    value="false"
+                />
+                <label for="online-mode-true">True</label>
+                <input
+                    type="radio"
+                    name="online-mode"
+                    id="online-mode-true"
+                    value="true"
+                    checked="checked"
+                />
+            </div>
+            <div>
+                Enable command block:
+                <label for="enable-command-block-false">False</label>
+                <input
+                    type="radio"
+                    name="enable-command-block"
+                    id="enable-command-block-false"
+                    value="false"
+                    checked="checked"
+                />
+                <label for="enable-command-block-true">True</label>
+                <input
+                    type="radio"
+                    name="enable-command-block"
+                    id="enable-command-block-true"
+                    value="true"
+                />
+            </div>
+            <div>
+                Spawn Animals:
+                <label for="spawn-animals-false">False</label>
+                <input
+                    type="radio"
+                    name="spawn-animals"
+                    id="spawn-animals-false"
+                    value="false"
+                />
+                <label for="spawn-animals-true">True</label>
+                <input
+                    type="radio"
+                    name="spawn-animals"
+                    id="spawn-animals-true"
+                    value="true"
+                    checked="checked"
+                />
+            </div>
+            <div>
+                Spawn NPCs:
+                <label for="spawn-npcs-false">False</label>
+                <input
+                    type="radio"
+                    name="spawn-npcs"
+                    id="spawn-npcs-false"
+                    value="false"
+                />
+                <label for="spawn-npcs-true">True</label>
+                <input
+                    type="radio"
+                    name="spawn-npcs"
+                    id="spawn-npcs-true"
+                    value="true"
+                    checked="checked"
+                />
+            </div>
+            <div>
+                Force gamemode:
+                <label for="force-gamemode-false">False</label>
+                <input
+                    type="radio"
+                    name="force-gamemode"
+                    id="force-gamemode-false"
+                    value="false"
+                    checked="checked"
+                />
+                <label for="force-gamemode-true">True</label>
+                <input
+                    type="radio"
+                    name="force-gamemode"
+                    id="force-gamemode-true"
+                    value="true"
+                />
+            </div>
+            <div>
+                White list:
+                <label for="white-list-false">False</label>
+                <input
+                    type="radio"
+                    name="white-list"
+                    id="white-list-false"
+                    value="false"
+                    checked="checked"
+                />
+                <label for="white-list-true">True</label>
+                <input
+                    type="radio"
+                    name="white-list"
+                    id="white-list-true"
+                    value="true"
+                />
+            </div>
+            <div>
+                PVP:
+                <label for="pvp-false">False</label>
+                <input type="radio" name="pvp" id="pvp-false" value="false" />
+                <label for="pvp-true">True</label>
+                <input
+                    type="radio"
+                    name="pvp"
+                    id="pvp-true"
+                    value="true"
+                    checked="checked"
+                />
+            </div>
+            <div>
+                Allow flight:
+                <label for="allow-flight-false">False</label>
+                <input
+                    type="radio"
+                    name="allow-flight"
+                    id="allow-flight-false"
+                    value="false"
+                    checked="checked"
+                />
+                <label for="allow-flight-true">True</label>
+                <input
+                    type="radio"
+                    name="allow-flight"
+                    id="allow-flight-true"
+                    value="true"
+                />
+            </div>
+            <div>
+                Spawn monsters:
+                <label for="spawn-monsters-false">False</label>
+                <input
+                    type="radio"
+                    name="spawn-monsters"
+                    id="spawn-monsters-false"
+                    value="false"
+                />
+                <label for="spawn-monsters-true">True</label>
+                <input
+                    type="radio"
+                    name="spawn-monsters"
+                    id="spawn-monsters-true"
+                    value="true"
+                    checked="checked"
+                />
+            </div>
+            <div>
+                Allow Nether:
+                <label for="allow-nether-false">False</label>
+                <input
+                    type="radio"
+                    name="allow-nether"
+                    id="allow-nether-false"
+                    value="false"
+                />
+                <label for="allow-nether-true">True</label>
+                <input
+                    type="radio"
+                    name="allow-nether"
+                    id="allow-nether-true"
+                    value="true"
+                    checked="checked"
+                />
+            </div>
+            <div>
+                Spawn protection:
+                <input
+                    name="spawn-protection"
+                    id="spawn-protection"
+                    type="number"
+                    value="16"
+                    min="0"
+                    max="2147483647"
+                />
+            </div>
+            <div>
+                Resource pack:
+                <input type="text" name="resource-pack" id="resource-pack" />
+            </div>
+            <div>
+                <input type="submit" value="Save" />
+            </div>
+        </form>
 
-		<button id="start-stop-button"></button>
-		<div
-			id="console-out"
-			style="
-				background-color: black;
-				color: white;
-				font-size: 12px;
-				overflow-y: scroll;
-				height: 100px;
-			"
-		></div>
-		<div>
-			<input type="text" id="command" autofocus />
-			<button id="send-command">SEND</button>
-		</div>
-		Server version:
-		<div id="version"></div>
-		Available versions:
-		<div id="version-links"></div>
-		<button type="button" id="update-version-links-button">Update</button>
-		<br />
-		Selected level:
-		<div id="selected-level"></div>
-		Available levels:
-		<div id="available-levels"></div>
-		Set level by name:
-		<div>
-			<form action="/cgi-bin/setLevel.py">
-				<input type="text" name="level-name" />
-				<input type="submit" name="submit-level-name" value="Set" />
-			</form>
-		</div>
-		Upload Level folder in ZIP format:
-		<form
-			action="cgi-bin/uploadLevel.py"
-			method="POST"
-			enctype="multipart/form-data"
-		>
-			File: <input name="file" type="file" />
-			<br />
-			<input name="submit" type="submit" value="Upload Level" />
-		</form>
-		<script type="text/javascript" src="./scripts/utils.js"></script>
-		<script type="text/javascript" src="./scripts/levelManagement.js"></script>
-		<script type="text/javascript" src="./scripts/getVersion.js"></script>
-		<script type="text/javascript" src="./scripts/versionLinks.js"></script>
-		<script type="text/javascript" src="./scripts/startStopServer.js"></script>
-		<script type="text/javascript" src="./scripts/serverProperties.js"></script>
-		<script type="text/javascript" src="./scripts/publicIp.js"></script>
-	</body>
+        <button id="start-stop-button"></button>
+        <div
+            id="console-out"
+            style="
+                background-color: black;
+                color: white;
+                font-size: 12px;
+                overflow-y: scroll;
+                height: 100px;
+            "
+        ></div>
+        <div>
+            <input type="text" id="command" autofocus />
+            <button id="send-command">SEND</button>
+        </div>
+        Server version:
+        <div id="version"></div>
+        Available versions:
+        <div id="version-links"></div>
+        <button type="button" id="update-version-links-button">Update</button>
+        <br />
+        Selected level:
+        <div id="selected-level"></div>
+        Available levels:
+        <div id="available-levels"></div>
+        Set level by name:
+        <div>
+            <form action="/cgi-bin/setLevel.py">
+                <input type="text" name="level-name" />
+                <input type="submit" name="submit-level-name" value="Set" />
+            </form>
+        </div>
+        Upload Level folder in ZIP format:
+        <form
+            action="cgi-bin/uploadLevel.py"
+            method="POST"
+            enctype="multipart/form-data"
+        >
+            File: <input name="file" type="file" />
+            <br />
+            <input name="submit" type="submit" value="Upload Level" />
+        </form>
+        <script type="text/javascript" src="./scripts/utils.js"></script>
+        <script
+            type="text/javascript"
+            src="./scripts/levelManagement.js"
+        ></script>
+        <script type="text/javascript" src="./scripts/getVersion.js"></script>
+        <script type="text/javascript" src="./scripts/versionLinks.js"></script>
+        <script
+            type="text/javascript"
+            src="./scripts/startStopServer.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="./scripts/serverProperties.js"
+        ></script>
+        <script type="text/javascript" src="./scripts/publicIp.js"></script>
+    </body>
 </html>
