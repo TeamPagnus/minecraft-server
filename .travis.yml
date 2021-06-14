@@ -7,6 +7,6 @@ before_install:
 python:
   - 3.9
 install:
-  - pip install bs4 selenium ipaddress requests
+  - pip install bs4 selenium ipaddress requests html5lib
 script:
   - cd testing && python first.py
