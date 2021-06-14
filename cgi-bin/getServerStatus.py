@@ -14,7 +14,9 @@ cgitb.enable()
 # Escribir Scripts de acá para abajo.
 from subprocess import getoutput
 
-lastLog = getoutput(f"tail -n40 {defs.MC_LOG_PATH}")
+#lastLog = getoutput(f"tail -n40 {defs.MC_LOG_PATH}")
+doneCount = getoutput(f"cat {defs.MC_LOG_PATH} | grep 'Done' | wc -l")
+stopCount = getoutput(f"cat {defs.MC_LOG_PATH} | grep 'Stopping the server' | wc -l")
 
 def getStatus():
     """
@@ -22,22 +24,12 @@ def getStatus():
     Started, Stopped, Waiting
     """
 
-    # Stopped
     if not defs.MC_SCREEN_PROCESS_NAME in getoutput("screen -ls"):
         return "Stopped"
 
-    # Waiting
-    if "Stopping the server" in lastLog:
-        return "Waiting"
+    if doneCount > stopCount:
+        return "Started"
 
-    # Started & Waiting
-    if "Preparing spawn area" in lastLog:
-        if "Done" in lastLog:
-            return "Started"
-        else:
-            return "Waiting"
-
-    # Default started, the server has a lot of log
-    return "Started"
+    return "Waiting"
 
 print(getStatus())
