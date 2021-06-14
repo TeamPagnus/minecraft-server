@@ -1,0 +1,7 @@
+language: python
+python:
+  - 3.9
+install:
+  - pip install bs4 selenium
+script:
+  - cd testing && python first.py
