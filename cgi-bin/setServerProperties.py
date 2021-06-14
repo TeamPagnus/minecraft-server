@@ -2,28 +2,20 @@
 # -*- coding: utf-8 -*-
 
 import cgi
-import defs
+import utils
 
-# Headers
-print("Content-Type: text/plain")
-print()
+def core(response):
+    server_properties = utils.extract_all_data(ARGS)
+    utils.set_server_properties(server_properties)
+    response["server_properties"] = server_properties
+    response["success"] = "true"
+    utils.respond_in_json(response)
 
-import cgitb
-cgitb.enable()
+ARGS = cgi.FieldStorage(keep_blank_values = True)
+RESPONSE = dict()
+SCRIPT_NAME = "setServerProperties.py"
 
-# Content
-args = cgi.FieldStorage(keep_blank_values = True)
-
-# Extract POST arguments.
-server_properties = ""
-for i in args.keys():
-    server_properties += f"{i}={args[i].value}\n"
-
-with open(defs.MC_WORLDLESS_PATH, 'w') as f:
-    f.write(server_properties)
-
-# Merge worldless-server.properties and level-name.properties into
-# server.properties.
-import generateServerProperties
-
-print("server.properties saved.")
+try:
+    core(RESPONSE)
+except Exception as e:
+    utils.log_exception(RESPONSE, SCRIPT_NAME, e)
