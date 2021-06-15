@@ -8,7 +8,7 @@ import utils
 
 def core(response):
     if utils.server_is_alive():
-        command = base64.b64decode(commandEncoded).decode('utf-8')
+        command = base64.b64decode(command_encoded).decode('utf-8')
         utils.send_command(command)
     response["success"] = "true"
     utils.respond_in_json(response)
