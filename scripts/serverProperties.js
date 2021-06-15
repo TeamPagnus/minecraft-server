@@ -48,13 +48,21 @@ function updateServerProperties(responseJSON) {
 }
 
 function setServerProperties(event) {
-    var url = "";
+    var url = "/cgi-bin/setServerProperties.py";
     var request = new XMLHttpRequest();
     request.open("POST", url, true);
     request.onload = function () {
         // request successful
         // we can use server response to our request now
-        document.getElementById("server-properties-success").innerText = `server.properties saved. (${getCurrentDatetime()})`
+        var res = JSON.parse(request.responseText);
+        if (res["success"] === "true") {
+            document.getElementById(
+                "server-properties-success"
+            ).innerText = `server.properties saved. (${getCurrentDatetime()})`;
+        } else {
+            document.getElementById("server-properties-success").innerText =
+                "Failed to save.";
+        }
     };
 
     request.onerror = function () {
@@ -65,6 +73,8 @@ function setServerProperties(event) {
     event.preventDefault();
 }
 
-document.getElementById("server-properties").addEventListener("submit", setServerProperties);
+document
+    .getElementById("server-properties")
+    .addEventListener("submit", setServerProperties);
 
 httpGetAsync("/cgi-bin/getServerProperties.py", updateServerProperties);
