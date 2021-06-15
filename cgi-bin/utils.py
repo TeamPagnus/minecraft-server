@@ -188,6 +188,7 @@ def unzip_file(file_path):
 
 def delete_level(level_name):
     shutil.rmtree(defs.MC_DIR + level_name)
+    shutil.rmtree(defs.MC_DIR + level_name + ".zip")
 
 def extract_data(args, key):
     try:
