@@ -5,7 +5,11 @@
     </head>
     <body>
         <div id="public-ip"></div>
-        <form action="/cgi-bin/setServerProperties.py" method="POST">
+        <form
+            id="server-properties"
+            action="/cgi-bin/setServerProperties.py"
+            method="POST"
+        >
             <div>
                 Max Players:
                 <input
@@ -217,7 +221,10 @@
                 <input type="text" name="resource-pack" id="resource-pack" />
             </div>
             <div>
-                <input type="submit" value="Save" />
+                <input
+                    type="submit"
+                    value="Save"
+                /><label id="server-properties-success"></label>
             </div>
         </form>
 
