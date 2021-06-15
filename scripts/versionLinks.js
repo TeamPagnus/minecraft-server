@@ -13,7 +13,7 @@ function parseGetVersionList(raw) {
 
 function getVersionLinks() {
 	httpGetAsync("/cgi-bin/getVersionList.py", (responseJSON) => {
-		res = JSON.parse(responseJSON)["versions"]
+		var res = JSON.parse(responseJSON)["versions"]
 		var versionList = parseGetVersionList(res);
 		document.getElementById("version-links").innerHTML = "";
 		versionList.forEach((e) => {
