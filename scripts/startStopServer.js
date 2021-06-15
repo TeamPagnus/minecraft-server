@@ -11,10 +11,8 @@ function enableBtns(isEnabled) {
 }
 
 function updateBtn() {
-    console.log("updating btn");
     httpGetAsync("/cgi-bin/getServerStatus.py", async function (responseText) {
         var res = JSON.parse(responseText)["server-status"];
-        console.log(responseText);
         if (responseText.includes("started")) {
             startStopButton.innerText = "Stop";
             enableBtns(true);
@@ -45,7 +43,6 @@ sendBtn.onclick = function () {
     httpGetAsync(
         "/cgi-bin/sendConsoleCommand.py?command=" + commandBase64,
         function (responseText) {
-            console.log(responseText);
             updateBtn();
         }
     );
@@ -53,7 +50,6 @@ sendBtn.onclick = function () {
 };
 
 startStopButton.onclick = function () {
-    console.log(startStopButton.innerText);
     if (startStopButton.innerText == "Stop") {
         enableBtns(false);
         httpGetAsync("/cgi-bin/stopServer.py", function () {
