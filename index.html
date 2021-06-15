@@ -2,14 +2,11 @@
 <html>
     <head>
         <title>MinecraftServerManager</title>
+        <meta charset="UTF-8" />
     </head>
     <body>
         <div id="public-ip"></div>
-        <form
-            id="server-properties"
-            action="/cgi-bin/setServerProperties.py"
-            method="POST"
-        >
+        <form id="server-properties" method="POST">
             <div>
                 Max Players:
                 <input
@@ -221,10 +218,9 @@
                 <input type="text" name="resource-pack" id="resource-pack" />
             </div>
             <div>
-                <input
-                    type="submit"
-                    value="Save"
-                /><label id="server-properties-success"></label>
+                <input type="submit" value="Save" /><label
+                    id="server-properties-success"
+                ></label>
             </div>
         </form>
 
@@ -255,20 +251,18 @@
         <div id="available-levels"></div>
         Set level by name:
         <div>
-            <form action="/cgi-bin/setLevel.py">
+            <form id="set-level-name">
                 <input type="text" name="level-name" />
                 <input type="submit" name="submit-level-name" value="Set" />
             </form>
         </div>
-        Upload Level folder in ZIP format:
-        <form
-            action="cgi-bin/uploadLevel.py"
-            method="POST"
-            enctype="multipart/form-data"
-        >
+        Upload level folder in ZIP format:
+        <form id="upload-level" method="POST" enctype="multipart/form-data">
             File: <input name="file" type="file" />
             <br />
-            <input name="submit" type="submit" value="Upload Level" />
+            <input name="submit" type="submit" value="Upload Level" /><label
+                id="upload-level-success"
+            ></label>
         </form>
         <script type="text/javascript" src="./scripts/utils.js"></script>
         <script
