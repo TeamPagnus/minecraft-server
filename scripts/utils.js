@@ -14,10 +14,21 @@ function sleep(ms) {
 
 function getCurrentDatetime() {
     var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    var dateTime = date+' '+time;
-    return dateTime
+    var date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+    var time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date + " " + time;
+    return dateTime;
+}
+
+function newButton(buttonId, text) {
+    var button = `<button id="${buttonId}" type="button">${text}</button>`;
+    return button;
 }
 
 /*
