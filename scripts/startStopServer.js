@@ -19,6 +19,7 @@ function updateBtn() {
         } else if (responseText.includes("stopped")) {
             startStopButton.innerText = "Start";
             enableBtns(true);
+            updateLevelModule();
         } else {
             startStopButton.innerText = "Waiting...";
             enableBtns(false);
