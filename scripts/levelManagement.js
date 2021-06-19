@@ -1,6 +1,8 @@
-function getSelectedLevel(responseJSON) {
-    var level = JSON.parse(responseJSON)["level-name"];
-    document.getElementById("selected-level").innerHTML = level;
+function configureDownloadLevelButton() {
+    var downloadLevelButton = document.getElementById(
+        "selected-level-download"
+    );
+    refreshElement(downloadLevelButton);
     var downloadLevelButton = document.getElementById(
         "selected-level-download"
     );
@@ -19,6 +21,11 @@ function getSelectedLevel(responseJSON) {
         request.send(); // create FormData from form that triggered event
         event.preventDefault();
     });
+}
+
+function configureDeleteLevelButton() {
+    var deleteLevelButton = document.getElementById("selected-level-delete");
+    refreshElement(deleteLevelButton);
     var deleteLevelButton = document.getElementById("selected-level-delete");
     deleteLevelButton.addEventListener("click", (e) => {
         var level = document.getElementById("selected-level").innerHTML;
@@ -35,6 +42,13 @@ function getSelectedLevel(responseJSON) {
         request.send(); // create FormData from form that triggered event
         event.preventDefault();
     });
+}
+
+function getSelectedLevel(responseJSON) {
+    var level = JSON.parse(responseJSON)["level-name"];
+    document.getElementById("selected-level").innerHTML = level;
+    configureDownloadLevelButton();
+    configureDeleteLevelButton();
 }
 
 function getAvailableLevels(responseJSON) {

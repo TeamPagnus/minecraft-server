@@ -31,6 +31,11 @@ function newButton(buttonId, text) {
     return button;
 }
 
+function refreshElement(element) {
+    var new_element = element.cloneNode(true);
+    element.parentNode.replaceChild(new_element, element);
+}
+
 /*
  * // This function serves as a preset for custom form submitting.
  * function formSubmit(event) {
