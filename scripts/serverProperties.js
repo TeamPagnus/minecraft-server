@@ -39,6 +39,7 @@ function fillText(key, value) {
 
 function updateServerProperties(responseJSON) {
     var response = JSON.parse(responseJSON)["server-properties"];
+    if (response === undefined) return;
     for (const [key, value] of Object.entries(response)) {
         fillNumbers(key, value);
         fillSelects(key, value);
