@@ -29,14 +29,13 @@
             </div>
             <div>
                 Online mode:
-                <label for="online-mode-false">False</label>
                 <input
                     type="radio"
                     name="online-mode"
                     id="online-mode-false"
                     value="false"
                 />
-                <label for="online-mode-true">True</label>
+                <label for="online-mode-false">False</label>
                 <input
                     type="radio"
                     name="online-mode"
@@ -44,10 +43,10 @@
                     value="true"
                     checked="checked"
                 />
+                <label for="online-mode-true">True</label>
             </div>
             <div>
                 Enable command block:
-                <label for="enable-command-block-false">False</label>
                 <input
                     type="radio"
                     name="enable-command-block"
@@ -55,24 +54,24 @@
                     value="false"
                     checked="checked"
                 />
-                <label for="enable-command-block-true">True</label>
+                <label for="enable-command-block-false">False</label>
                 <input
                     type="radio"
                     name="enable-command-block"
                     id="enable-command-block-true"
                     value="true"
                 />
+                <label for="enable-command-block-true">True</label>
             </div>
             <div>
                 Spawn Animals:
-                <label for="spawn-animals-false">False</label>
                 <input
                     type="radio"
                     name="spawn-animals"
                     id="spawn-animals-false"
                     value="false"
                 />
-                <label for="spawn-animals-true">True</label>
+                <label for="spawn-animals-false">False</label>
                 <input
                     type="radio"
                     name="spawn-animals"
@@ -80,17 +79,17 @@
                     value="true"
                     checked="checked"
                 />
+                <label for="spawn-animals-true">True</label>
             </div>
             <div>
                 Spawn NPCs:
-                <label for="spawn-npcs-false">False</label>
                 <input
                     type="radio"
                     name="spawn-npcs"
                     id="spawn-npcs-false"
                     value="false"
                 />
-                <label for="spawn-npcs-true">True</label>
+                <label for="spawn-npcs-false">False</label>
                 <input
                     type="radio"
                     name="spawn-npcs"
@@ -98,10 +97,10 @@
                     value="true"
                     checked="checked"
                 />
+                <label for="spawn-npcs-true">True</label>
             </div>
             <div>
                 Force gamemode:
-                <label for="force-gamemode-false">False</label>
                 <input
                     type="radio"
                     name="force-gamemode"
@@ -109,17 +108,17 @@
                     value="false"
                     checked="checked"
                 />
-                <label for="force-gamemode-true">True</label>
+                <label for="force-gamemode-false">False</label>
                 <input
                     type="radio"
                     name="force-gamemode"
                     id="force-gamemode-true"
                     value="true"
                 />
+                <label for="force-gamemode-true">True</label>
             </div>
             <div>
                 White list:
-                <label for="white-list-false">False</label>
                 <input
                     type="radio"
                     name="white-list"
@@ -127,19 +126,19 @@
                     value="false"
                     checked="checked"
                 />
-                <label for="white-list-true">True</label>
+                <label for="white-list-false">False</label>
                 <input
                     type="radio"
                     name="white-list"
                     id="white-list-true"
                     value="true"
                 />
+                <label for="white-list-true">True</label>
             </div>
             <div>
                 PVP:
-                <label for="pvp-false">False</label>
                 <input type="radio" name="pvp" id="pvp-false" value="false" />
-                <label for="pvp-true">True</label>
+                <label for="pvp-false">False</label>
                 <input
                     type="radio"
                     name="pvp"
@@ -147,10 +146,10 @@
                     value="true"
                     checked="checked"
                 />
+                <label for="pvp-true">True</label>
             </div>
             <div>
                 Allow flight:
-                <label for="allow-flight-false">False</label>
                 <input
                     type="radio"
                     name="allow-flight"
@@ -158,24 +157,24 @@
                     value="false"
                     checked="checked"
                 />
-                <label for="allow-flight-true">True</label>
+                <label for="allow-flight-false">False</label>
                 <input
                     type="radio"
                     name="allow-flight"
                     id="allow-flight-true"
                     value="true"
                 />
+                <label for="allow-flight-true">True</label>
             </div>
             <div>
                 Spawn monsters:
-                <label for="spawn-monsters-false">False</label>
                 <input
                     type="radio"
                     name="spawn-monsters"
                     id="spawn-monsters-false"
                     value="false"
                 />
-                <label for="spawn-monsters-true">True</label>
+                <label for="spawn-monsters-false">False</label>
                 <input
                     type="radio"
                     name="spawn-monsters"
@@ -183,17 +182,17 @@
                     value="true"
                     checked="checked"
                 />
+                <label for="spawn-monsters-true">True</label>
             </div>
             <div>
                 Allow Nether:
-                <label for="allow-nether-false">False</label>
                 <input
                     type="radio"
                     name="allow-nether"
                     id="allow-nether-false"
                     value="false"
                 />
-                <label for="allow-nether-true">True</label>
+                <label for="allow-nether-false">False</label>
                 <input
                     type="radio"
                     name="allow-nether"
@@ -201,6 +200,7 @@
                     value="true"
                     checked="checked"
                 />
+                <label for="allow-nether-true">True</label>
             </div>
             <div>
                 Spawn protection:
@@ -273,8 +273,7 @@
             type="text/javascript"
             src="./scripts/levelManagement.js"
         ></script>
-        <script type="text/javascript" src="./scripts/getVersion.js"></script>
-        <script type="text/javascript" src="./scripts/versionLinks.js"></script>
+        <script type="text/javascript" src="./scripts/versionManagement.js"></script>
         <script
             type="text/javascript"
             src="./scripts/startStopServer.js"
