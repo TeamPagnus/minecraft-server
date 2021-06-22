@@ -34,14 +34,14 @@ function configureDeleteLevelButton() {
     });
 }
 
-function getSelectedLevel(responseJSON) {
+function refreshSelectedLevel(responseJSON) {
     var level = JSON.parse(responseJSON)["level-name"];
     document.getElementById("selected-level").innerHTML = level;
     configureDownloadLevelButton();
     configureDeleteLevelButton();
 }
 
-function getAvailableLevels(responseJSON) {
+function refreshAvailableLevels(responseJSON) {
     var levels = JSON.parse(responseJSON)["levels"];
     document.getElementById("available-levels").innerHTML = "";
     for (level of levels) {
@@ -109,13 +109,14 @@ function uploadLevel(event) {
 }
 
 function updateLevelModule() {
-    httpGetAsync("/cgi-bin/getCurrentLevel.py", getSelectedLevel);
-    httpGetAsync("/cgi-bin/getLevelsList.py", getAvailableLevels);
+    httpGetAsync("/cgi-bin/getCurrentLevel.py", refreshSelectedLevel);
+    httpGetAsync("/cgi-bin/getLevelsList.py", refreshAvailableLevels);
 }
 
 document
     .getElementById("set-level-name")
     .addEventListener("submit", setLevelName);
+
 document.getElementById("upload-level").addEventListener("submit", uploadLevel);
 
 updateLevelModule();
