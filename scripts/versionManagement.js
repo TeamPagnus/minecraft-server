@@ -16,17 +16,12 @@ function showAvailableVersions(responseJSON) {
         var button = document.getElementById(buttonId);
         button.addEventListener("click", (e) => {
             var url = `/cgi-bin/setVersion.py?${e["target"]["id"]}`;
-            var request = new XMLHttpRequest();
-            request.open("GET", url, true);
-            request.onload = function () {
-                var res = JSON.parse(request.responseText);
+            httpGetAsync(url, (res) => {
+                res = JSON.parse(res);
                 if (res["success"] === "true") {
                     updateCurrentVersion();
                 }
-            };
-            request.onerror = function () {};
-            request.send(); // create FormData from form that triggered event
-            event.preventDefault();
+            });
         });
     }
 }

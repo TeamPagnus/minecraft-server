@@ -9,17 +9,12 @@ function configureDownloadLevelButton() {
     downloadLevelButton.addEventListener("click", (e) => {
         var level = document.getElementById("selected-level").innerHTML;
         var url = `/cgi-bin/downloadLevel.py?level-name=${level}`;
-        var request = new XMLHttpRequest();
-        request.open("GET", url, true);
-        request.onload = function () {
-            var res = JSON.parse(request.responseText);
+        httpGetAsync(url, (res) => {
+            res = JSON.parse(res);
             if (res["success"] === "true") {
                 window.open(res["url"]);
             }
-        };
-        request.onerror = function () {};
-        request.send(); // create FormData from form that triggered event
-        event.preventDefault();
+        });
     });
 }
 
@@ -30,17 +25,12 @@ function configureDeleteLevelButton() {
     deleteLevelButton.addEventListener("click", (e) => {
         var level = document.getElementById("selected-level").innerHTML;
         var url = `/cgi-bin/deleteLevel.py?level-name=${level}`;
-        var request = new XMLHttpRequest();
-        request.open("GET", url, true);
-        request.onload = function () {
-            var res = JSON.parse(request.responseText);
+        httpGetAsync(url, (res) => {
+            res = JSON.parse(res);
             if (res["success"] === "true") {
                 updateLevelModule();
             }
-        };
-        request.onerror = function () {};
-        request.send(); // create FormData from form that triggered event
-        event.preventDefault();
+        });
     });
 }
 
@@ -68,17 +58,12 @@ function getAvailableLevels(responseJSON) {
         var button = document.getElementById(buttonId);
         button.addEventListener("click", (e) => {
             var url = `/cgi-bin/setLevel.py?${e["target"]["id"]}`;
-            var request = new XMLHttpRequest();
-            request.open("GET", url, true);
-            request.onload = function () {
-                var res = JSON.parse(request.responseText);
+            httpGetAsync(url, (res) => {
+                res = JSON.parse(res);
                 if (res["success"] === "true") {
                     updateLevelModule();
                 }
-            };
-            request.onerror = function () {};
-            request.send(); // create FormData from form that triggered event
-            event.preventDefault();
+            });
         });
     }
 }
