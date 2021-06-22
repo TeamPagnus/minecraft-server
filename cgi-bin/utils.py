@@ -2,23 +2,27 @@
 # -*- coding: utf-8 -*-
 
 from bs4 import BeautifulSoup
-from os import walk
 from subprocess import getoutput, run
 import defs
 import json
 import os
 import requests
 import shutil
+import zipfile
 
 def respond_in_json(payload):
+    # These prints are the headers of the HTTP response.
     print("Content-Type: application/json")
     print()
     print(json.dumps(payload))
 
 def extract_version_from_filename(filename):
+    # The names of the .jar files of the Minecraft server have the following
+    # format: minecraft_server.<version>.jar.
     return '.'.join(filename.split('.')[1:-1])
 
 def get_selected_version():
+    # The selected version will be "None" if the version is not installed.
     versions = get_installed_versions()
     try:
         with open(defs.MC_SERVER_VERSION_PATH, "r") as f:
@@ -48,8 +52,9 @@ def get_downloadable_versions():
     return versions
 
 def get_installed_versions():
+    # There might be problems if a level's name contains "minecraft_server."
     try:
-        files = next(walk(defs.MC_DIR))[-1]
+        files = next(os.walk(defs.MC_DIR))[-1]
     except Exception:
         return []
     else:
@@ -61,6 +66,10 @@ def get_installed_versions():
         return versions
 
 def generate_server_properties():
+    # Because level-name and the server properties are handled by different
+    # modules, the level-name setting is stored in a file and the server
+    # properties without level-name is stored in separate file. This function
+    # fetches the contents both files and joins them into server.properties.
     server_properties = ""
     try:
         with open(defs.MC_LEVELLESS_PATH, 'r') as f:
@@ -101,12 +110,15 @@ def fetch_version_url(version):
     return None
 
 def version_is_installed(version):
-    files = next(walk(defs.MC_DIR))[-1]
+    # NOTE that there's no error handling for the integrity of the .jar file. It
+    # might be corrupted or it might not even be a .jar file.
+    files = next(os.walk(defs.MC_DIR))[-1]
     if f"minecraft_server.{version}.jar" in files:
         return True
     return False
 
 def save_uploaded_file(args, directory):
+    # NOTE that there's no error handling for the contents of the uploaded file.
     form = args
     if "file" not in form.keys():
         return None
@@ -133,10 +145,8 @@ def server_is_alive():
 def get_server_status():
     doneCount = getoutput(f"cat {defs.MC_LOG_PATH} | grep 'Done' | wc -l")
     stopCount = getoutput(f"cat {defs.MC_LOG_PATH} | grep 'Stopping the server' | wc -l")
-    """
-    Hay 3 estados posibles:
-    Started, Stopped, Waiting
-    """
+    # There are 3 possible states:
+    # Started, Stopped, Waiting
     if not defs.MC_SCREEN_PROCESS_NAME in getoutput("screen -ls"):
         return "stopped"
 
@@ -149,19 +159,24 @@ def send_command(command):
     getoutput(f"screen -S {defs.MC_SCREEN_PROCESS_NAME} -X stuff '{command}\n'")
 
 def get_current_level():
+    # If a level-name file doesn't exist, it creates it with the default
+    # level-name world.
     try:
         with open(defs.MC_LEVEL_NAME_PATH, 'r') as f:
             level = f.read().strip()
     except Exception:
         level = "level-name=world"
+        with open(defs.MC_LEVEL_NAME_PATH, 'w') as f:
+            f.write(level)
+
     level = '='.join(level.split('=')[1:])
     return level
 
 def get_levels():
+    # Any directory that isn't listed in EXCEPTION is considered a level.
     EXCEPTION = ["logs"]
-
     try:
-        levels = next(walk(defs.MC_DIR))[1]
+        levels = next(os.walk(defs.MC_DIR))[1]
     except Exception:
         levels = []
 
@@ -170,22 +185,27 @@ def get_levels():
             levels.remove(f)
         except Exception:
             pass
-
     return levels
 
 def zip_level(level):
-    shutil.make_archive(defs.MC_DIR + f"{level}.zip", 'zip', defs.MC_DIR + level)
+    shutil.make_archive(defs.MC_DIR + f"{level}", 'zip', defs.MC_DIR + level)
     url = f"/{defs.MC_DIR + level}.zip"
     return url
 
 def unzip_file(file_path):
     with zipfile.ZipFile(file_path, 'r') as zip_ref:
-        zip_ref.extractall(defs.MC_DIR)
+        filename = '.'.join(zip_ref.filename.split('.')[:-1])
+        zip_ref.extractall(filename)
 
 def delete_level(level_name):
     shutil.rmtree(defs.MC_DIR + level_name)
+    try:
+        shutil.rmtree(defs.MC_DIR + level_name + ".zip")
+    except Exception:
+        pass
 
 def extract_data(args, key):
+    # This function is used to abstract the CGI implementation of FieldStorage.
     try:
         result = args[key].value
     except Exception:
@@ -193,11 +213,16 @@ def extract_data(args, key):
     return result
 
 def log_error(response, caller, error):
+    # Generates and sends error JSON response.
     response["error"] = error
     response["error"]["caller"] = caller
     respond_in_json(response)
 
 def set_version(version):
+    # If the server version is not downloadable, it fails.
+    # If the server version is not downloaded, it downloads it and writes to the
+    # server version file.
+    # Otherwise, it just writes to the server version file.
     downloadable_versions = get_downloadable_versions()
     valid = False
     for v in downloadable_versions:
@@ -216,6 +241,7 @@ def set_version(version):
     return True
 
 def log_exception(response, caller, exception):
+    # This function allows to send Python caught exceptions as responses.
     response["error"] = defs.P_EXCEPTION
     response["error"]["caller"] = caller
     response["error"]["exception"] = str(exception)
@@ -228,12 +254,16 @@ def set_level(level_name):
     generate_server_properties()
 
 def extract_all_data(args):
+    # This function is used to abstract the CGI implementation of FieldStorage.
+    # It returns a dictionary.
     data = {}
     for k in args.keys():
         data[k] = args[k].value
     return data
 
 def set_server_properties(payload):
+    # NOTE this doesn't check if the settings are valid. I'm pretty sure the
+    # .jar handles invalid server.properties appropriately.
     server_properties = ""
     for k in payload.keys():
         server_properties += f"{k}={payload[k]}\n"
@@ -248,9 +278,6 @@ def get_server_properties():
     for prop in server_properties_raw:
         try:
             split = prop.split("=")
-        except Exception:
-            pass
-        try:
             server_properties[split[0]] = split[1]
         except Exception:
             pass
@@ -259,6 +286,7 @@ def get_server_properties():
 def start_server():
     if server_is_alive():
         return
+    # This is necessary for the server to start.
     with open(defs.MC_EULA_PATH, 'w') as f:
         f.write("eula=true")
     version = get_selected_version()

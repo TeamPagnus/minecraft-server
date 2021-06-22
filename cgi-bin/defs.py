@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# directories
+# Directories.
 CGI_DIR = "cgi_bin/"
 MC_DIR = "minecraft/"
 
-# file names
+# File names.
 MC_OUT_LOG_FILENAME = "out.txt"
 
-# full file paths
+# Full file paths.
 MC_LOG_PATH = MC_DIR + MC_OUT_LOG_FILENAME
 MC_LEVELLESS_PATH = MC_DIR + "levelless-server.properties"
 MC_LEVEL_NAME_PATH = MC_DIR + "level-name.properties"
@@ -17,10 +17,10 @@ MC_SERVER_VERSION_PATH = MC_DIR + "server-version"
 MC_AVAILABLE_VERSION_PATH = MC_DIR + "available-versions"
 MC_EULA_PATH = MC_DIR + "eula.txt"
 
-# variables
+# Variables.
 MC_SCREEN_PROCESS_NAME = "minecraftServer"
 
-# Errors
+# Errors.
 W_FIELD_NOT_FOUND = {"code": 0, "description": "field not found"}
 W_INVALID_FIELD_FORMAT = {"code": 1, "description": "invalid field format"}
 W_INVALID_VERSION = {"code": 2, "description": "invalid server version"}

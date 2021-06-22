@@ -61,12 +61,13 @@ class PythonOrgSearch(unittest.TestCase):
         element.click()
         print("update-version-links-button clicked")
 
-        e = (By.CSS_SELECTOR, "#version-links > a:nth-child(3)")
+        e = (By.CSS_SELECTOR, "#version-links > button:nth-child(3)")
         element = w.until(EC.presence_of_element_located(e))
         element.click()
         print("version-link (3) clicked")
 
-        element = w.until(EC.url_contains("setVersion.py"))
+        e = (By.ID, "version")
+        element = w.until(EC.text_to_be_present_in_element(e, "1"))
         print("was installed")
 
         driver.back()
