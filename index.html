@@ -5,7 +5,9 @@
         <meta charset="UTF-8" />
     </head>
     <body>
+        <!-- Displays Public IP -->
         <div id="public-ip"></div>
+        <!-- This form allows managing the basic server properties -->
         <form id="server-properties" method="POST">
             <div>
                 Max Players:
@@ -223,8 +225,9 @@
                 ></label>
             </div>
         </form>
-
+        <!-- A button for starting and stopping the server -->
         <button id="start-stop-button"></button>
+        <!-- A div that displays the server log -->
         <div
             id="console-out"
             style="
@@ -235,45 +238,58 @@
                 height: 100px;
             "
         ></div>
+        <!-- A div for typing and sending commands to the server -->
         <div>
             <input type="text" id="command" autofocus />
             <button id="send-command">SEND</button>
         </div>
-        Server version:
-        <div id="version"></div>
-        Available versions:
-        <div id="version-links"></div>
-        <button type="button" id="update-version-links-button">Update</button>
-        <br />
-        Selected level:
+        <!-- A div for managing the Minecraft server versions -->
         <div>
-            <label id="selected-level"></label>
-            <button id="selected-level-download" type="button">Download</button>
-            <button id="selected-level-delete" type="button">Delete</button>
+            Server version:
+            <div id="version"></div>
+            Available versions:
+            <div id="version-links"></div>
+            <button type="button" id="update-version-links-button">
+                Update
+            </button>
         </div>
-        Available levels:
-        <div id="available-levels"></div>
-        Set level by name:
+        <!-- A div for managing levels -->
         <div>
-            <form id="set-level-name">
-                <input type="text" name="level-name" />
-                <input type="submit" name="submit-level-name" value="Set" />
+            Selected level:
+            <div>
+                <label id="selected-level"></label>
+                <button id="selected-level-download" type="button">
+                    Download
+                </button>
+                <button id="selected-level-delete" type="button">Delete</button>
+            </div>
+            Available levels:
+            <div id="available-levels"></div>
+            Set level by name:
+            <div>
+                <form id="set-level-name">
+                    <input type="text" name="level-name" />
+                    <input type="submit" name="submit-level-name" value="Set" />
+                </form>
+            </div>
+            Upload level folder in ZIP format:
+            <form id="upload-level" method="POST" enctype="multipart/form-data">
+                File: <input name="file" type="file" />
+                <br />
+                <input name="submit" type="submit" value="Upload Level" /><label
+                    id="upload-level-success"
+                ></label>
             </form>
         </div>
-        Upload level folder in ZIP format:
-        <form id="upload-level" method="POST" enctype="multipart/form-data">
-            File: <input name="file" type="file" />
-            <br />
-            <input name="submit" type="submit" value="Upload Level" /><label
-                id="upload-level-success"
-            ></label>
-        </form>
         <script type="text/javascript" src="./scripts/utils.js"></script>
         <script
             type="text/javascript"
             src="./scripts/levelManagement.js"
         ></script>
-        <script type="text/javascript" src="./scripts/versionManagement.js"></script>
+        <script
+            type="text/javascript"
+            src="./scripts/versionManagement.js"
+        ></script>
         <script
             type="text/javascript"
             src="./scripts/startStopServer.js"
