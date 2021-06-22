@@ -39,7 +39,7 @@ def get_downloadable_versions():
         with open(defs.MC_AVAILABLE_VERSION_PATH, 'r') as f:
             versions_raw = f.read().split('\n')
     except Exception:
-        versions = []
+        versions_raw = []
     for v in versions_raw:
         try:
             split = v.split(' ')
