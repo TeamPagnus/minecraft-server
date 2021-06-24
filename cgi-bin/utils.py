@@ -156,6 +156,11 @@ def get_server_status():
     return "waiting"
 
 def send_command(command):
+    try:
+        with open(defs.MC_LOG_PATH, 'a') as f:
+            f.write(f"{command}\n")
+    except:
+        pass
     getoutput(f"screen -S {defs.MC_SCREEN_PROCESS_NAME} -X stuff '{command}\n'")
 
 def get_current_level():
@@ -292,7 +297,7 @@ def start_server():
     version = get_selected_version()
     JAVA_START = "java -Xmx1024M -Xms1024M -jar"
     JAVA_END =  "nogui"
-    command = f"{JAVA_START} minecraft_server.{version}.jar {JAVA_END} &>> {defs.MC_OUT_LOG_FILENAME}"
+    command = f"{JAVA_START} minecraft_server.{version}.jar {JAVA_END} >> {defs.MC_OUT_LOG_FILENAME} 2>&1"
     os.chdir(defs.MC_DIR)
     getoutput(f"screen -dmS {defs.MC_SCREEN_PROCESS_NAME}")
     run(["screen", "-S",  defs.MC_SCREEN_PROCESS_NAME,  "-X", "stuff", f'{command}; exit\n'])
