@@ -292,7 +292,7 @@ def start_server():
     version = get_selected_version()
     JAVA_START = "java -Xmx1024M -Xms1024M -jar"
     JAVA_END =  "nogui"
-    command = f"{JAVA_START} minecraft_server.{version}.jar {JAVA_END} >> {defs.MC_OUT_LOG_FILENAME} &>> {defs.MC_OUT_LOG_FILENAME}"
+    command = f"{JAVA_START} minecraft_server.{version}.jar {JAVA_END} &>> {defs.MC_OUT_LOG_FILENAME}"
     os.chdir(defs.MC_DIR)
     getoutput(f"screen -dmS {defs.MC_SCREEN_PROCESS_NAME}")
     run(["screen", "-S",  defs.MC_SCREEN_PROCESS_NAME,  "-X", "stuff", f'{command}; exit\n'])
