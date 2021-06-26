@@ -1,14 +1,13 @@
-FROM python:3.9.5
+FROM python:3.9.5-alpine
 
-RUN apt-get update && apt-get install -y \
-    default-jre-headless \
-    screen \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk --update upgrade && apk add --no-cache \
+    openjdk11-jre-headless \
+    screen
 
-RUN useradd -m -r minecraft-server
+RUN addgroup -S minecraft-server && adduser -S minecraft-server -G minecraft-server
 USER minecraft-server
 WORKDIR /home/minecraft-server
-
+ 
 RUN pip install --no-cache-dir \
     bs4 \
     ipaddress \
